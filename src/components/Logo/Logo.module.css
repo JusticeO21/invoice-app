@@ -1,0 +1,74 @@
+.logo_container {
+  width: 6rem;
+  height: 7rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 0.9rem 0.9rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mask1 {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: rgba(124, 93, 250, 1);
+  position: absolute;
+}
+
+.mask2 {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: rgba(146, 119, 255, 1);
+  position: absolute;
+  bottom: -47%;
+  border-radius: 0.9rem 0 0 0;
+  z-index: 10;
+}
+
+.logo_image {
+  max-width: 100%;
+  height: auto;
+}
+
+.logo {
+  position: relative;
+  display: block;
+  z-index: 20;
+  width: 2.8rem;
+  height: 2.8rem;
+}
+
+@media (min-width: 768px) {
+  .logo_container {
+    width: 4rem;
+    height: 4.5rem;
+  }
+
+  .logo {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .mask2 {
+    bottom: -50%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .logo_container {
+    width: 6rem;
+    height: 6.5rem;
+  }
+
+  .logo {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .mask2 {
+    bottom: -55%;
+  }
+}

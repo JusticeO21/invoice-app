@@ -1,0 +1,51 @@
+.filter{
+    position: relative;
+}
+
+.filter button{
+    border: none;
+    background: transparent;
+    width: 7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.filter button p {
+    color:var(--primary-text-color)
+}
+
+.filter button .arrow{
+    transition: transform 150ms ease-in-out;
+}
+.filter button .arrowUp{
+    transform: rotateX(180deg);
+}
+
+.menu{
+    position: absolute;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background: var(--secondary-bg);
+    left: -3rem;
+    right: -3rem;
+    margin-top: 2rem;
+    padding: 2rem 0 2rem ;
+    border-radius: 0.3rem;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.1rem;
+}
+
+.menu li{
+    list-style: none;
+    text-align: left;
+}
+
+
+@media (min-width: 600px){
+    .filter button{
+        width: 10rem;
+    }
+}
