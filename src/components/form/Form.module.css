@@ -1,0 +1,36 @@
+.bill_to_container{
+    display: grid;
+    gap: 1rem;
+}
+
+.bill_to_container h3{
+    color: var(--primary-button);
+}
+
+.adress_add_ons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form{
+    display: grid;
+    gap: 3rem;
+    margin-bottom: 10rem;
+    background-color: var(--primary-bg);
+    overflow: scroll;
+}
+
+.form input{
+    background: var(--secondary-bg);
+    font-weight: 500;
+    padding: 1rem;
+    width: 100%;
+    outline: none;
+    border: none;
+    color: var(--primary-text-color);
+}
+
+.form p{
+    padding: 0.85rem;
+}

@@ -1,0 +1,19 @@
+.container{
+    background-color: var(--secondary-bg);
+    padding: 3rem;
+    border-radius: 0.35rem;
+    box-shadow: var(--box-shadow);
+    display: grid;
+    gap: 1.5rem;
+}
+
+.actions{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    gap: 2rem;
+}
+
+.actions button {
+    padding: 1rem 2rem;
+}

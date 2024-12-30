@@ -1,0 +1,4 @@
+.heading{
+    text-transform: capitalize;
+    color: var( --primary-text-color);
+}

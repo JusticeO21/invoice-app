@@ -1,0 +1,23 @@
+.app{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.main{
+    padding: 2rem 3rem;
+    overflow-y: scroll;
+}
+
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .main{
+        flex: 1;
+        padding: 3rem 8rem ;
+    }
+
+  .app{
+    flex-direction: row;
+  }
+}
