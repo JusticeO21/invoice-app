@@ -1,9 +1,7 @@
-// Avatar.test.tsx
 import { render, screen } from "@testing-library/react";
 import Avatar from "./Avatar";
 import { expect, vi, describe, test } from "vitest";
 import "@testing-library/jest-dom"; 
-import classNames from 'classnames';
 
 type AvatarProps = {
   src: string;

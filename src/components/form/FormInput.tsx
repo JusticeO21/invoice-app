@@ -1,4 +1,3 @@
-// FormInput.tsx
 import React, { ChangeEvent } from "react";
 
 interface FormInputProps {

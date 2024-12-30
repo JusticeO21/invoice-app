@@ -1,4 +1,3 @@
-// FormError.tsx
 import React from "react";
 
 interface FormErrorProps {

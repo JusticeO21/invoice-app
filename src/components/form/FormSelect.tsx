@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import styles from "./FormSelect.module.css";
 import Icon from "../icon/Icon";
 import arrowDown from "../../assets/icon-arrow-down.svg";
