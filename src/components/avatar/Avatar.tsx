@@ -1,7 +1,7 @@
 import Icon from "../icon/Icon.tsx";
 import styles from "./Avatar.module.css";
 
-interface AvatarProps {
+export interface AvatarProps {
   src: string;
   alt: string;
   size?: "small" | "medium" | "large";

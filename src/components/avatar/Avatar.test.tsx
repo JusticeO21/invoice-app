@@ -3,12 +3,20 @@ import { render, screen } from "@testing-library/react";
 import Avatar from "./Avatar";
 import { expect, vi, describe, test } from "vitest";
 import "@testing-library/jest-dom"; 
+import classNames from 'classnames';
 
-
+type AvatarProps = {
+  src: string;
+  alt: string;
+    size?: "small" | "medium" | "large";
+    radius: string;
+    className: string;
+};
 // Mock the Icon component to avoid rendering it during the test
 vi.mock("../icon/Icon.tsx", () => ({
   __esModule: true,
-  default: ({ src, alt, size, radius, className }: any) => (
+    default: ({ src, alt, size, radius, className }: AvatarProps) => (
+      //@ts-ignore
     <div data-testid="mock-icon" className={className} alt={alt}>
       Mocked Icon: {src} - {size} - {radius}
     </div>
