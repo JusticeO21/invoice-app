@@ -1,5 +1,6 @@
 import { ReactNode, ComponentPropsWithoutRef, ElementType } from "react";
-import styles from "./Heading.module.css"; 
+import styles from "./Heading.module.css";
+import classNames from "classnames";
 
 interface HeaderProps {
   children: ReactNode;
@@ -16,7 +17,7 @@ export function Heading ({
   ...props
 }: HeadingProps) {
   const Tag: ElementType = variant;
-  const headingClass = `${styles.heading} ${styles[variant]} ${className}`;
+  const headingClass = classNames(styles.heading, styles[variant], className);
 
   return (
     <Tag className={headingClass} {...props}>
