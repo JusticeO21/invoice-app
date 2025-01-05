@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "../../components/button/Button";
 import Badge from "../../components/Badge/Badge";
-import styles from "./Invoice.module.css";
+import styles from "./InvoiceDetailsPage.module.css";
 import { Text } from "../../components/text/Text";
 import { Heading } from "../../components/heading/Heading";
 import Table from "../../components/Table/Table";
@@ -13,9 +13,13 @@ import leftArrow from "../../assets/icon-arrow-left.svg";
 import Icon from "../../components/icon/Icon";
 import { formatCurrency } from "../../components/InvoiceCard/utils";
 import { toggleDialog } from "../../Redux/dialogReducer";
-import { updateInvoiceToBeDeleted, updateInvoice } from "../../Redux/invoiceReducer";
+import {
+  updateInvoiceToBeDeleted,
+  updateInvoice,
+} from "../../Redux/invoiceReducer";
 import { format } from "date-fns";
-import Dialog from "../../components/Dialog/Dialog";
+import EditInvoiceForm from "../EditInvoiceForm/EditInvoiceForm";
+import { editInvoice as showEditInvoiceForm } from "../../Redux/invoiceReducer";
 
 const Invoice: React.FC<{}> = () => {
   const data = useAppSelector((state) => state.invoice.invoiceList);
@@ -46,7 +50,7 @@ const Invoice: React.FC<{}> = () => {
   }
 
   function handleEditClick() {
-    setIsEditModalOpen(true);
+    dispatch(showEditInvoiceForm(true));
   }
 
   function handleEditClose() {
@@ -55,7 +59,7 @@ const Invoice: React.FC<{}> = () => {
 
   function handleMarkAsRead() {
     if (invoice?.status === "paid") return;
-    invoice && dispatch(updateInvoice({...invoice, status:"paid"}))
+    invoice && dispatch(updateInvoice({ ...invoice, status: "paid" }));
   }
 
   if (loading) return <div>Loading...</div>;
@@ -91,7 +95,12 @@ const Invoice: React.FC<{}> = () => {
           >
             Delete
           </Button>
-          <Button variant="primary" radius="rounded-md" disabled={invoice?.status === "paid"} onClick={handleMarkAsRead}>
+          <Button
+            variant="primary"
+            radius="rounded-md"
+            disabled={invoice?.status === "paid"}
+            onClick={handleMarkAsRead}
+          >
             Mark as Read
           </Button>
         </div>
@@ -100,7 +109,10 @@ const Invoice: React.FC<{}> = () => {
       <div className={styles.invoice_content}>
         <section className={styles.invoice_details}>
           <span className={styles.invoice_id}>
-            <Heading>#{invoice?.id}</Heading>
+            <Heading>
+              <Text>#</Text>
+              {invoice?.id}
+            </Heading>
             <Text>Graphic Design {invoice?.description}</Text>
           </span>
 
@@ -151,7 +163,7 @@ const Invoice: React.FC<{}> = () => {
         </section>
 
         <section className={styles.invoice_items}>
-          <Table />
+          <Table invoiceItems={invoice?.items || []} />
         </section>
 
         <footer className={styles.total}>
@@ -178,7 +190,11 @@ const Invoice: React.FC<{}> = () => {
           >
             Delete
           </Button>
-          <Button variant="primary" radius="rounded-md" disabled={invoice?.status === "paid"}>
+          <Button
+            variant="primary"
+            radius="rounded-md"
+            disabled={invoice?.status === "paid"}
+          >
             Mark as Read
           </Button>
         </div>
@@ -198,9 +214,7 @@ const Invoice: React.FC<{}> = () => {
         </div>
       )}
 
-      {
-        isEditModalOpen && (<Dialog isOpen={isEditModalOpen} onClose={handleEditClose}>.</Dialog>)
-      }
+      <EditInvoiceForm />
     </section>
   );
 };
