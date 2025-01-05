@@ -3,7 +3,7 @@ import checkMark from "../../assets/icon-check.svg"
 import Icon from "../icon/Icon";
 
 import React from "react";
-import styles from "./Checkbox.module.css"; // Import the CSS module styles
+import styles from "./Checkbox.module.css";
 
 interface CheckboxProps {
   label: string;
@@ -28,11 +28,20 @@ function Checkbox ({
         onChange={onChange}
         id={name}
         name={name}
-        className={styles.hiddenInput} // Hide input using CSS module
+        data-testid="checkbox-input"
+        className={styles.hiddenInput}
       />
       <label htmlFor={name} className={labelClassName}>
-        <span className={styles.checkboxCustom} role="checkbox">
-          <Icon src={checkMark} alt="checkMark" className={ !checked? styles.hiddenMark: ""} />
+        <span
+          className={styles.checkboxCustom}
+          role="checkbox"
+          data-testid="checkbox-span"
+        >
+          <Icon
+            src={checkMark}
+            alt="checkMark"
+            className={!checked ? styles.hiddenMark : ""}
+          />
         </span>
         {label}
       </label>

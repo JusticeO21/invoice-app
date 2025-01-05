@@ -1,4 +1,5 @@
 import styles from "./icon.module.css";
+import classNames from "classnames";
 
 interface IconProps {
   src: string;
@@ -22,9 +23,10 @@ function Icon ({
 }: IconProps) {
   const sizeClass = styles[size] || styles.sm; 
   const radiusClass = styles[radius] || styles.rounded;
+  const iconClass = classNames(styles.icon, className);
 
   return (
-    <span className={`${styles.icon} ${className}`}>
+    <span className={iconClass}>
       <img
         src={src}
         alt={alt}
