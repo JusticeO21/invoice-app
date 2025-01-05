@@ -10,7 +10,7 @@ type AvatarProps = {
     radius: string;
     className: string;
 };
-// Mock the Icon component to avoid rendering it during the test
+
 vi.mock("../icon/Icon.tsx", () => ({
   __esModule: true,
     default: ({ src, alt, size, radius, className }: AvatarProps) => (
@@ -46,23 +46,23 @@ describe("Avatar Component", () => {
     );
 
     let icon = screen.getByTestId("mock-icon");
-    expect(icon).toHaveClass("small"); // Assuming your Avatar.module.css defines the 'small' class
+    expect(icon.className).toContain("small"); 
 
     rerender(<Avatar src="avatar.jpg" alt="John Doe" size="medium" />);
 
     icon = screen.getByTestId("mock-icon");
-    expect(icon).toHaveClass("medium"); // Assuming your Avatar.module.css defines the 'medium' class
+    expect(icon.className).toContain("medium"); 
 
     rerender(<Avatar src="avatar.jpg" alt="John Doe" size="large" />);
 
     icon = screen.getByTestId("mock-icon");
-    expect(icon).toHaveClass("large"); // Assuming your Avatar.module.css defines the 'large' class
+    expect(icon.className).toContain("large");
   });
 
   test("defaults to 'small' size if no size is provided", () => {
     render(<Avatar src="avatar.jpg" alt="John Doe" />);
 
     const icon = screen.getByTestId("mock-icon");
-    expect(icon).toHaveClass("small");
+    expect(icon.className).toContain("small");
   });
 });

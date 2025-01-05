@@ -2,11 +2,9 @@ import { ReactNode, HTMLAttributes } from "react";
 import classNames from "classnames";
 import styles from "./Badge.module.css";
 
-type BadgeVariant = "paid" | "pending" | "draft";
-
 interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   children: ReactNode;
-  variant?: BadgeVariant;
+  variant?: "paid" | "pending" | "draft";
   ariaLabel?: string;
   ariaLive?: "polite" | "assertive";
 }
@@ -34,7 +32,7 @@ function Badge({
       aria-live={ariaLive}
       role="status"
     >
-      <span className={styles.oval} aria-hidden="true" />{" "}
+      <span className={styles.oval} aria-hidden="true" role="presentation"/>{" "}
       {children}
     </span>
   );
