@@ -7,13 +7,17 @@ type invoiceState = {
     invoiceDataHasAlreadyBeenLoaded: boolean;
     deleteInvoiceWithId?: string;
     availableInvoices: number;
+    editInvoice: boolean;
+    addNewInvoice: boolean;
 }
 
 const initialState: invoiceState = {
     FilterBy: "",
     invoiceList:[],
     invoiceDataHasAlreadyBeenLoaded: false,
-    availableInvoices:0,
+    availableInvoices: 0,
+    editInvoice:false,
+    addNewInvoice:false,
 }
 
 const InvoiceSlice = createSlice({
@@ -64,9 +68,17 @@ const InvoiceSlice = createSlice({
             state.deleteInvoiceWithId = action.payload
         },
 
+        editInvoice : (state, action: PayloadAction<boolean>) => {
+            state.editInvoice = action.payload
+        },
+
+        addNewInvoice : (state, action: PayloadAction<boolean>) => {
+            state.addNewInvoice = action.payload;
+        },
+
         reset: () => {return initialState}
     })
 });
 
-export const { FilterInvoice, reset, addInvoice, deleteInvoice, updateInvoice, loadInvoiceData, updateInvoiceToBeDeleted } = InvoiceSlice.actions;
+export const { editInvoice, addNewInvoice, FilterInvoice, reset, addInvoice, deleteInvoice, updateInvoice, loadInvoiceData, updateInvoiceToBeDeleted } = InvoiceSlice.actions;
 export default InvoiceSlice.reducer;
