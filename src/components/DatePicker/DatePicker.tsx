@@ -4,8 +4,8 @@ import CustomCalendar from '../CustomCalendar/CustomCalendar';
 import styles from "./DatePicker.module.css";
 import calendar from "../../assets/icon-calendar.svg"
 import Icon from "../icon/Icon";
-import FormGroup from "../form/FormGroup";
-import FormLabel from "../form/FormLabel";
+import FormGroup from "../InvoiceForm/FormGroup";
+import FormLabel from "../InvoiceForm/FormLabel";
 import { Text } from "../text/Text";
 import { format } from "date-fns";
 import TextField from "../TextField/TextField";
