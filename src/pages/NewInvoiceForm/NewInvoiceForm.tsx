@@ -1,7 +1,7 @@
 import Button from '../../components/button/Button';
 import Icon from '../../components/icon/Icon';
 import LeftArrow from "../../assets/icon-arrow-left.svg";
-import styles from "./NewInvoice.module.css";
+import styles from "./NewInvoiceForm.module.css";
 import { Text } from '../../components/text/Text';
 import { Heading } from '../../components/heading/Heading';
 import InvoiceForm from '../../components/InvoiceForm/Form';

@@ -6,6 +6,7 @@
     justify-content: space-between;
     align-items: center;
     padding-bottom: 1rem;
+    z-index: 100;
 }
 
 .user_control{

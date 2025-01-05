@@ -10,7 +10,7 @@ import {
   eachDayOfInterval,
   isToday,
 } from "date-fns";
-import styles from "./Calandar.module.css";
+import styles from "./CustomCalendar.module.css";
 import leftArrow from "../../assets/icon-arrow-left.svg";
 import rightArrow from "../../assets/icon-arrow-right.svg";
 import Icon from "../icon/Icon";

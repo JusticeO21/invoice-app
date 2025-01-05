@@ -20,6 +20,7 @@ import {
 import { format } from "date-fns";
 import EditInvoiceForm from "../EditInvoiceForm/EditInvoiceForm";
 import { editInvoice as showEditInvoiceForm } from "../../Redux/invoiceReducer";
+import HashSymbol from "../../components/HashSymbol/HashSymbol";
 
 const Invoice: React.FC<{}> = () => {
   const data = useAppSelector((state) => state.invoice.invoiceList);
@@ -110,7 +111,7 @@ const Invoice: React.FC<{}> = () => {
         <section className={styles.invoice_details}>
           <span className={styles.invoice_id}>
             <Heading>
-              <Text>#</Text>
+              <HashSymbol/>
               {invoice?.id}
             </Heading>
             <Text>Graphic Design {invoice?.description}</Text>

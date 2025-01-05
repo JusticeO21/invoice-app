@@ -6,7 +6,7 @@ import HomePage from './pages/HomePage/HomePage';
 import {useAppDispatch, useAppSelector } from "./Hooks/useRedux";
 import { useFetchDataQuery } from "./Redux/dataApi";
 import { loadInvoiceData } from "./Redux/invoiceReducer";
-import InvoiceDetailsPage from "./pages/InvoiceDetailsPage/Invoice";
+import InvoiceDetailsPage from "./pages/InvoiceDetailsPage/InvoiceDetailsPage";
 import Dialog from "./pages/DeleteDialog/DeleteDialog";
 
 function App() {
