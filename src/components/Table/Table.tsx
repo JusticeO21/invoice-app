@@ -1,29 +1,31 @@
 import { useState, useEffect } from "react";
-import { Text } from "../text/Text"; 
+import { Text } from "../text/Text";
 import { Heading } from "../heading/Heading";
-import styles from "./Table.module.css"
-import data from "../../assets/data.json";
+import styles from "./Table.module.css";
+import type { Item } from "../../types/AppDataType";
 import { formatCurrency } from "../InvoiceCard/utils";
 interface TableProps {
-  headers?: ["Name", "QTY", "Price", "Total"]; 
+  headers?: ["Name", "QTY", "Price", "Total"];
+  invoiceItems: Item[];
 }
 
-function Table ({ headers = ["Name", "QTY", "Price", "Total"] }: TableProps){
+function Table({
+  headers = ["Name", "QTY", "Price", "Total"],
+  invoiceItems,
+}: TableProps) {
   const mediaQuery = window.matchMedia("(max-width:600px)");
-  const usableData = data[4];
-  const InvoiceItems = usableData.items;
-  
-     const [isMobile, setIsMobile] = useState(mediaQuery.matches);
-      useEffect(() => {
-        const handleResize = (e: MediaQueryListEvent) => {
-          setIsMobile(e.matches);
-      };
-    
-        mediaQuery.addEventListener("change", handleResize);
-        return () => {
-          mediaQuery.removeEventListener("change", handleResize);
-        };
-      }, []);
+
+  const [isMobile, setIsMobile] = useState(mediaQuery.matches);
+  useEffect(() => {
+    const handleResize = (e: MediaQueryListEvent) => {
+      setIsMobile(e.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleResize);
+    return () => {
+      mediaQuery.removeEventListener("change", handleResize);
+    };
+  }, []);
 
   return (
     <table className={styles.table}>
@@ -41,7 +43,7 @@ function Table ({ headers = ["Name", "QTY", "Price", "Total"] }: TableProps){
 
       <tbody>
         {!isMobile &&
-          InvoiceItems.map((row, rowIndex) => (
+          invoiceItems.map((row, rowIndex) => (
             <tr key={rowIndex}>
               <td>{row.name}</td>
               <td>{row.quantity}</td>
@@ -51,13 +53,15 @@ function Table ({ headers = ["Name", "QTY", "Price", "Total"] }: TableProps){
           ))}
 
         {isMobile &&
-          InvoiceItems.map((row, rowIndex) => (
+          invoiceItems.map((row, rowIndex) => (
             <tr key={rowIndex}>
               <td>
                 <Heading variant="h5" className={styles.mobile_heading}>
                   {row.name}
                 </Heading>
-                <Text>{row.quantity} * { formatCurrency(row.price)}</Text>
+                <Text>
+                  {row.quantity} * {formatCurrency(row.price)}
+                </Text>
               </td>
               <td>
                 <Text>{formatCurrency(row.total)} </Text>
@@ -67,6 +71,6 @@ function Table ({ headers = ["Name", "QTY", "Price", "Total"] }: TableProps){
       </tbody>
     </table>
   );
-};
+}
 
 export default Table;
