@@ -12,17 +12,18 @@ import { useAppDispatch, useAppSelector } from '../../Hooks/useRedux';
 import { addInvoice, addNewInvoice as hideInvoiceForm } from '../../Redux/invoiceReducer';
 import { generateRandomId, calculateDueDate } from './utils';
 import { format } from "date-fns";
+import { toast } from "react-toastify";
 
 function calculateTotal(arr:Item[]) {
   return arr.reduce((total, currentItem) => total + currentItem.total, 0);
 }
-function NewInvoiceForm() {
 
+
+function NewInvoiceForm() {
   const dispatch = useAppDispatch()
-  const {addNewInvoice} = useAppSelector(state=>state.invoice)
-  const handleSubmiteAndSend = (data: FormData) => {
-    console.log(data);
-    
+  const { addNewInvoice } = useAppSelector(state => state.invoice)
+  const notify = () => toast.success("Success! Your new invoice has been successfully added.");
+  const handleSubmiteAndSend = (data: FormData) => { 
     const newInvoice: Invoice = {
       id: generateRandomId(),
       createdAt: format(data.createdAt, "yyyy-MM-dd"),
@@ -48,7 +49,8 @@ function NewInvoiceForm() {
       total: calculateTotal(data.items),
     };
 
-    dispatch(addInvoice(newInvoice))
+    dispatch(addInvoice(newInvoice));
+    notify();
   }
 
   const handleSaveAsDraft = (data:FormData) => {
@@ -78,6 +80,7 @@ function NewInvoiceForm() {
     };
 
     dispatch(addInvoice(newInvoice));
+    notify();
   }
 
   const handleHideInvoice = () => {

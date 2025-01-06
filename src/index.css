@@ -17,6 +17,7 @@
   --status-pending-bg: rgba(255, 143, 0, 0.08);
   --status-draft-bg: rgba(223, 227, 250, 0.2);
   --draft-button:#373B53;
+  --toastify-toast-background:red !important;
 }
 
 html[data-theme="light"] {
@@ -70,7 +71,17 @@ input[type="number"] {
   margin: 0;
 }
  
+.Toastify__toast {
+  background-color: var(--primary-text-color);
+  box-shadow: var(--box-shadow);
+  font-size: 1.3rem;
+  border-radius: 0;
+}
 
+ .Toastify__toast-container {
+    z-index: 99999;
+    top: 50% !important;
+  }
 
 @media (min-width: 600px) and (max-width: 1024px) {
   html{
@@ -78,10 +89,20 @@ input[type="number"] {
   }
 }
 
+
 @media (min-width: 1025px) and (max-width: 1280px) {
   
 html{
   font-size: 78%;
+}
+
+.Toastify__toast-container {
+    top: 1rem !important;
+    right: 3rem !important;
+  }
+
+.Toastify__toast {
+  height: 8rem;
 }
 }
 
@@ -90,4 +111,14 @@ html{
 html{
   font-size: 80%;
 }
+
+.Toastify__toast-container {
+    top: 1rem !important;
+    right: 3rem !important;
+  }
+
+.Toastify__toast {
+  height: 8rem;
+}
+
 }

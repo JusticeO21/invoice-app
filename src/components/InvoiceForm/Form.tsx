@@ -11,7 +11,7 @@ import Button from "../button/Button";
 import ItemField from "./ItemField";
 import DatePicker from "../DatePicker/DatePicker";
 import type { FormData } from "../../types/FormDatatype";
-import {format} from "date-fns"
+import { format } from "date-fns"
 
 type InvoiceFormProps = {
   onSaveAndSend?: (data: FormData) => void;
@@ -25,7 +25,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({onSaveAndSend, onSaveAsDraft, 
   const { handleSubmit, register, formState: { errors }, reset, control, watch, setValue } = useForm<FormData>({
     defaultValues: defaultFormData || {
       paymentTerms: "1"
-      ,createdAt: format(new Date(), "dd MMM yyyy")
+      , createdAt: format(new Date(), "dd MMM yyyy")
     }
   });
 
@@ -34,12 +34,10 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({onSaveAndSend, onSaveAsDraft, 
   const [saveAndSendInvoice, setSaveAndSendInvoice] = useState<boolean>(true);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
+     
     if (data.items.length === 0) return setItemListIsEmpty(true);
     if (saveAndSendInvoice) {
-      console.log(data)
-      onSaveAndSend && onSaveAndSend(data);
-      alert("added new")
-      
+      onSaveAndSend && onSaveAndSend(data); 
     } else {
       onSaveAsDraft && onSaveAsDraft(data);
     }

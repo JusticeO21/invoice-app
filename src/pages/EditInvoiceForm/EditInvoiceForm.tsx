@@ -15,6 +15,7 @@ import { findItemById } from '../InvoiceDetailsPage/utils';
 import HashSymbol from '../../components/HashSymbol/HashSymbol';
 import { calculateDueDate, generateRandomId } from '../NewInvoiceForm/utils';
 import { format } from 'date-fns';
+import { toast } from 'react-toastify';
 
 function calculateTotal(arr:Item[]) {
   return arr.reduce((total, currentItem) => total + currentItem.total, 0);
@@ -44,7 +45,9 @@ function EditInvoice() {
     items: fetchedInvoice?.items || [],
   };
 
-  const handleSubmiteAndSend = (data: FormData) => {
+  const handleSaveEditChanges = (data: FormData) => {
+    const notify = () => toast.success(`Success! Invoice ${invoiceId} has been successfully updated.`);
+
     const newInvoice: Invoice = {
       id: invoiceId || generateRandomId(),
       createdAt: data.createdAt,
@@ -71,6 +74,7 @@ function EditInvoice() {
     }
 
     dispatch(updateInvoice(newInvoice))
+    notify()
   }
 
   const handleHideInvoice = () => {
@@ -91,7 +95,7 @@ function EditInvoice() {
         </header>
 
         <InvoiceForm
-          onSaveAndSend={handleSubmiteAndSend}
+          onSaveAndSend={handleSaveEditChanges}
           isANewInvoice={false}
           defaultFormData={defaultInvoice}
           onCancel={handleHideInvoice}
