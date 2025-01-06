@@ -16,7 +16,7 @@ describe("Checkbox Component", () => {
         label={label}
         checked={checked}
         onChange={vi.fn()}
-        name={name}
+        value={name}
       />
     );
 
@@ -38,7 +38,7 @@ describe("Checkbox Component", () => {
         label={label}
         checked={checked}
         onChange={vi.fn()}
-        name={name}
+        value={name}
       />
     );
 
@@ -57,7 +57,7 @@ describe("Checkbox Component", () => {
         label={label}
         checked={checked}
         onChange={onChange}
-        name={name}
+        value={name}
       />
     );
 
@@ -82,7 +82,7 @@ describe("Checkbox Component", () => {
         label={label}
         checked={checked}
         onChange={vi.fn()}
-        name={name}
+        value={name}
       />
     );
 

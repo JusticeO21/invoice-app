@@ -9,14 +9,14 @@ interface CheckboxProps {
   label: string;
   checked: boolean;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
-  name: string;
+  value: string;
 }
 
 function Checkbox ({
   label,
   checked,
   onChange,
-  name,
+  value,
 }:CheckboxProps)  {
   const labelClassName = `${styles.label} ${checked ? styles.checked : ""}`;
 
@@ -26,12 +26,12 @@ function Checkbox ({
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        id={name}
-        name={name}
+        id={label}
+        name={label}
         data-testid="checkbox-input"
         className={styles.hiddenInput}
       />
-      <label htmlFor={name} className={labelClassName}>
+      <label htmlFor={label} className={labelClassName}>
         <span
           className={styles.checkboxCustom}
           role="checkbox"

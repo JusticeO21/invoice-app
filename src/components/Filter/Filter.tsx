@@ -56,6 +56,7 @@ function Filter({ options }:FilterProps){
         aria-expanded={isOpen ? "true" : "false"}
         aria-haspopup="true"
         aria-controls="Filter-menu"
+        type="button"
       >
         <Text>{isMobile ? "Filter" : "Filter by status"}</Text>
 
@@ -82,7 +83,7 @@ function Filter({ options }:FilterProps){
                 label={option.label}
                 checked={selelectedOption === option.name}
                 onChange={handleCheckboxChange}
-                name={option.name}
+                value={option.name}
               />
             </li>
           ))}
