@@ -9,7 +9,7 @@ import { loadInvoiceData } from "./Redux/invoiceReducer";
 import InvoiceDetailsPage from "./pages/InvoiceDetailsPage/InvoiceDetailsPage";
 import Dialog from "./pages/DeleteDialog/DeleteDialog";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, Bounce, Zoom } from "react-toastify"; 
+import { ToastContainer,Zoom } from "react-toastify"; 
 
 function App() {
   const { invoiceList, invoiceDataHasAlreadyBeenLoaded } = useAppSelector((state) => state.invoice);
@@ -36,7 +36,7 @@ function App() {
               <Route path="/invoice/:invoiceId" element={<InvoiceDetailsPage />}/>
             </Routes> 
           }
-          <ToastContainer transition={Bounce}/>
+          <ToastContainer transition={Zoom}/>
         </main>
           <Dialog />
       </div>

@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from "./HashSymbol.module.css"
 
 function HashSymbol() {

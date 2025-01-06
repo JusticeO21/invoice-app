@@ -26,12 +26,12 @@ function Checkbox ({
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        id={label}
-        name={label}
+        id={value}
+        name={value}
         data-testid="checkbox-input"
         className={styles.hiddenInput}
       />
-      <label htmlFor={label} className={labelClassName}>
+      <label htmlFor={value} className={labelClassName}>
         <span
           className={styles.checkboxCustom}
           role="checkbox"
