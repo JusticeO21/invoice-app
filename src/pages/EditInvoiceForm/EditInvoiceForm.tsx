@@ -50,28 +50,31 @@ function EditInvoice() {
 
     const newInvoice: Invoice = {
       id: invoiceId || generateRandomId(),
-      createdAt: data.createdAt,
-      paymentDue: calculateDueDate(data.createdAt, Number(data.paymentTerms)),
+      createdAt: format(data.createdAt, "yyyy-MM-dd"),
+      paymentDue: calculateDueDate(
+        format(data.createdAt, "yyyy-MM-dd"),
+        Number(data.paymentTerms)
+      ),
       description: data.description,
       paymentTerms: Number(data.paymentTerms),
       clientName: data.clientName,
       clientEmail: data.clientEmail,
       status: fetchedInvoice?.status || "pending",
       senderAddress: {
-      street: data.senderStreetAdress,
-      city: data.senderCity, 
-      postCode:data.senderPostCode,
-      country: data.senderCountry
-    },
-    clientAddress:  {
-      street: data.clientStreetAddress,
-      city: data.clientCity, 
-      postCode:data.clientPostcode,
-      country: data.clientCountry
-    },
+        street: data.senderStreetAdress,
+        city: data.senderCity,
+        postCode: data.senderPostCode,
+        country: data.senderCountry,
+      },
+      clientAddress: {
+        street: data.clientStreetAddress,
+        city: data.clientCity,
+        postCode: data.clientPostcode,
+        country: data.clientCountry,
+      },
       items: data.items,
-    total:calculateTotal(data.items)
-    }
+      total: calculateTotal(data.items),
+    };
 
     dispatch(updateInvoice(newInvoice))
     notify()
