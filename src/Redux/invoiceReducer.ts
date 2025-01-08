@@ -40,22 +40,18 @@ const InvoiceSlice = createSlice({
         },
 
         addInvoice:(state, action: PayloadAction<Invoice>) => {
-            state.invoiceList?.push(action.payload)
+            state.invoiceList?.push(action.payload);
             state.availableInvoices = state.invoiceList.length;
         },
 
-        updateInvoice:(state, action: PayloadAction<Invoice>) => {
-            state.invoiceList = state.invoiceList?.map((invoice) => {
-                if (invoice.id === action.payload.id) {
-                    return action.payload
-                } else {
-                    return invoice
-                }
-            });
-            state.availableInvoices = state.invoiceList?.filter((invoice) => {
-                return invoice.status == state.FilterBy
-            }).length
-        },
+        updateInvoice: (state, action: PayloadAction<Invoice>) => {
+            const updatedInvoiceList = state.invoiceList?.map((invoice) =>
+                invoice.id === action.payload.id ? action.payload : invoice
+            );
+
+            state.invoiceList = updatedInvoiceList;
+            state.availableInvoices = updatedInvoiceList.length;
+            },
 
         deleteInvoice:(state, action: PayloadAction<string>) => {
             state.invoiceList = state.invoiceList?.filter((invoice) => {
