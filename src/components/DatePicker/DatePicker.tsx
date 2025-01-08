@@ -50,6 +50,7 @@ const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
           className={styles.inputWrapper}
           onClick={toggleCalendar}
           aria-label="Open calendar"
+          ref={ref}
         >
           <TextField
             id={name}
