@@ -16,77 +16,81 @@ interface FilterProps {
   selectedTerm: string;
 }
 
-const DropDown: React.FC<FilterProps> = ({
-  options,
-  handleSelect,
-  selectedTerm,
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const selectRef = useRef<HTMLDivElement>(null);
+// Wrap DropDown with React.forwardRef
+const DropDown = React.forwardRef<HTMLDivElement, FilterProps>(
+  ({ options, handleSelect, selectedTerm }, ref) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const selectRef = useRef<HTMLDivElement>(null);
 
-  const toggleSelect = () => setIsOpen((prev) => !prev);
+    const toggleSelect = () => setIsOpen((prev) => !prev);
 
-  const handleOptionClick = (name: string) => {
-    handleSelect(name);
-    setIsOpen(false);
-  };
-
-   const selectedOptionLabel =
-     options.find((option) => option.value === selectedTerm)?.label || "Net 1 Day"
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        selectRef.current &&
-        !selectRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
+    const handleOptionClick = (name: string) => {
+      handleSelect(name);
+      setIsOpen(false);
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
-  return (
-    <div className={styles.selectContainer} ref={selectRef}>
-      <button
-        type="button"
-        onClick={toggleSelect}
-        className={styles.toggleButton}
-        aria-expanded={isOpen ? "true" : "false"}
-        aria-haspopup="listbox"
-        aria-controls="filter-menu"
-      >
-        <Text>{selectedOptionLabel}</Text>
-        <Icon
-          src={arrowDown}
-          alt={isOpen ? "arrow up" : "arrow down"}
-          size="sm"
-          className={`${styles.arrow} ${
-            isOpen ? styles.arrowUp : styles.arrowDown
-          }`}
-        />
-      </button>
+    const selectedOptionLabel =
+      options.find((option) => option.value === selectedTerm)?.label ||
+      "Net 1 Day";
 
-      {isOpen && (
-        <ul className={styles.dropdownMenu} role="listbox" id="filter-menu">
-          {options.map((option) => (
-            <li
-              key={option.value}
-              className={styles.dropdownItem}
-              role="option"
-              onClick={() => handleOptionClick(option.value)}
-              aria-selected={option.value === selectedTerm ? "true" : "false"}
-            >
-              {option.label}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-};
+    useEffect(() => {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (
+          selectRef.current &&
+          !selectRef.current.contains(event.target as Node)
+        ) {
+          setIsOpen(false);
+        }
+      };
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, []);
+
+    return (
+      <div className={styles.selectContainer} ref={ref || selectRef}>
+        {" "}
+        {/* Forward ref here */}
+        <button
+          type="button"
+          onClick={toggleSelect}
+          className={styles.toggleButton}
+          aria-expanded={isOpen ? "true" : "false"}
+          aria-haspopup="listbox"
+          aria-controls="filter-menu"
+        >
+          <Text>{selectedOptionLabel}</Text>
+          <Icon
+            src={arrowDown}
+            alt={isOpen ? "arrow up" : "arrow down"}
+            size="sm"
+            className={`${styles.arrow} ${
+              isOpen ? styles.arrowUp : styles.arrowDown
+            }`}
+          />
+        </button>
+        {isOpen && (
+          <ul className={styles.dropdownMenu} role="listbox" id="filter-menu">
+            {options.map((option) => (
+              <li
+                key={option.value}
+                className={styles.dropdownItem}
+                role="option"
+                onClick={() => handleOptionClick(option.value)}
+                aria-selected={option.value === selectedTerm ? "true" : "false"}
+              >
+                {option.label}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    );
+  }
+);
+
+// Display name for debugging purposes
+DropDown.displayName = "DropDown";
 
 export default DropDown;

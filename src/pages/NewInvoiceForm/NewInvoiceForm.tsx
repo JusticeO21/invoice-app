@@ -18,7 +18,6 @@ function calculateTotal(arr:Item[]) {
   return arr.reduce((total, currentItem) => total + currentItem.total, 0);
 }
 
-
 function NewInvoiceForm() {
   const dispatch = useAppDispatch()
   const { addNewInvoice } = useAppSelector(state => state.invoice)

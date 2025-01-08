@@ -43,7 +43,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({onSaveAndSend, onSaveAsDraft, 
     }
 
     setSaveAndSendInvoice(true);
-    reset();
+    isANewInvoice && reset();
   };
 
   const handleDiscard = () => {
@@ -144,7 +144,13 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({onSaveAndSend, onSaveAsDraft, 
           </FormLabel>
           <FormInput
             type="text"
-            {...register("clientEmail", { required: "Can't be empty" })}
+            {...register("clientEmail", {
+              required: "Can't be empty",
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                message: "Invalid email format"
+              },
+            })}
           />
         </FormGroup>
 
@@ -228,10 +234,10 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({onSaveAndSend, onSaveAsDraft, 
             <Controller
               name="paymentTerms"
               control={control}
-              rules={{ required: "This field is required" }} // Validation rule
+              rules={{ required: "This field is required" }}
               render={({ field }) => (
                 <FormSelect
-                  {...field} // Spread field values from Controller to FormSelect
+                  {...field}
                   options={[
                     { label: "Net 1 Day", value: "1" },
                     { label: "Net 7 Day", value: "7" },
@@ -278,7 +284,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({onSaveAndSend, onSaveAsDraft, 
           variant="secondary"
           radius="rounded-md"
           type="button"
-          onClick={() => append({ name: "", quantity: 0, price: 0, total: 0 })}
+          onClick={() => append({ name: "", quantity: 1, price: 0, total: 0 })}
           className={styles.add_item_button}
         >
           <Text>+ Add New Item</Text>
@@ -294,9 +300,11 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({onSaveAndSend, onSaveAsDraft, 
         {isANewInvoice && (
           <div className={styles.actions}>
             <Button
+              type="button"
               variant="secondary"
               radius="rounded-md"
               className={styles.discard_button}
+              onClick={handleDiscard}
             >
               <Text>Discard</Text>
             </Button>
@@ -332,7 +340,11 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({onSaveAndSend, onSaveAsDraft, 
               <Text>Cancel</Text>
             </Button>
 
-            <Button type="submit" radius="rounded-md" className={styles.save_edit_button}>
+            <Button
+              type="submit"
+              radius="rounded-md"
+              className={styles.save_edit_button}
+            >
               <Text>Save Changes</Text>
             </Button>
           </div>

@@ -8,13 +8,11 @@ function HomePage() {
   const {
     invoiceList: data,
     FilterBy: filterByStatus,
-    addNewInvoice,
   } = useAppSelector((state) => state.invoice);
   const dispatch = useAppDispatch();
 
   function handleAddNewInvoice() {
     dispatch(showNewInvoiceForm(true));
-    console.log(addNewInvoice);
   }
 
   return (

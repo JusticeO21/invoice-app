@@ -6,7 +6,7 @@ export const generateRandomId = (): string => {
   const randomLetters: string = Array.from(crypto.getRandomValues(new Uint8Array(2)))
     .map(value => String.fromCharCode(65 + (value % 26)))
     .join('');
-  const randomNumbers: string = uuid.slice(0, 4);
+  const randomNumbers: string = uuid.replace(/\D/g, '').slice(0, 4);
   const randomId: string = `${randomLetters}${randomNumbers}`;
   return randomId;
 };
