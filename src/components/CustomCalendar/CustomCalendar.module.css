@@ -1,0 +1,75 @@
+.calendarContainer {
+  display: inline-block;
+  background-color: var(--primary-bg);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: var(--box-shadow);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.header h3{
+  user-select: none;
+}
+
+.navButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.navButton:hover{
+  background: transparent;
+}
+
+.monthLabel {
+  font-size: 1.2rem;
+}
+
+.dayOfWeek {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--primary-text-color);
+}
+
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1rem;
+  text-align: center;
+}
+
+.dayButton {
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+  padding: 0.15rem;
+  cursor: pointer;
+  color: var(--primary-text-color);
+  font-weight: 700;
+}
+
+.dayButton:hover {
+  background: transparent;
+  transition: color 0.2s;
+  color: var(--primary-button);
+}
+
+.today {
+  color: var(--primary-button);
+}
+
+.disabled {
+  color: var(--secondary-bg);
+  cursor: not-allowed;
+}
+
+.disabled:hover {
+  background-color: transparent;
+}

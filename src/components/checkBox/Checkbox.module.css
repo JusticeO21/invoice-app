@@ -1,0 +1,31 @@
+.hiddenInput {
+  opacity: 0;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  color: var(--primary-text-color);
+  position: relative;
+}
+
+.checked span {
+  background: var(--primary-button);
+}
+
+span .hiddenMark{
+    opacity: 0;
+}
+
+.checkboxCustom {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid var(--primary-button);
+  transition:border-color 0.3s;
+  margin-right: 1.3rem;
+  background: var(--primary-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

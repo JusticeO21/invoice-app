@@ -1,0 +1,13 @@
+.caption{
+    font-size: 12px;
+    color: gray;
+}
+.description{
+    font-size: 14px;
+    color: var(--secondary-text-color);
+}
+
+.caption__green{
+    background: green;
+
+}
