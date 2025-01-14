@@ -11,7 +11,7 @@ export function formatCurrency(amount: number, currency: string = 'GBP', locale:
   return new Intl.NumberFormat(locale, {
     style: 'currency',
     currency: currency,
-    currencyDisplay: 'symbol', // Use symbol for the currency
-  }).format(amount).replace(symbol, `${symbol} `); // Ensure space after symbol
+    currencyDisplay: 'symbol',
+  }).format(amount).replace(symbol, `${symbol} `); 
 }
 

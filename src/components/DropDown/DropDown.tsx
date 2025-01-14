@@ -50,8 +50,6 @@ const DropDown = React.forwardRef<HTMLDivElement, FilterProps>(
 
     return (
       <div className={styles.selectContainer} ref={ref || selectRef}>
-        {" "}
-        {/* Forward ref here */}
         <button
           type="button"
           onClick={toggleSelect}
@@ -90,7 +88,6 @@ const DropDown = React.forwardRef<HTMLDivElement, FilterProps>(
   }
 );
 
-// Display name for debugging purposes
 DropDown.displayName = "DropDown";
 
 export default DropDown;
