@@ -3,23 +3,28 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import rootReducer from './rootReducer';
 import { dataApi } from './dataApi';
+import { authApi } from './authApi';
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ['dataApi']
+  blacklist: ['dataApi', 'authApi']
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: {
+    persisted: persistedReducer,
+     [dataApi.reducerPath]: dataApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
+  },
   devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
       },
-    }).concat(dataApi.middleware),
+    }).concat(dataApi.middleware, authApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
