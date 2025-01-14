@@ -1,0 +1,66 @@
+.container{
+    display:grid;
+ 
+    grid-template-areas:
+    "item_name item_name item_name item_name"
+    "item_quantity item_price item_total remove_button";
+    gap: 1.5rem;
+    column-gap: 3rem;
+}
+
+
+.item_name{
+    grid-area: item_name;
+}
+
+.item_quantity{
+    grid-area: item_quantity;
+}
+
+.item_price{
+    grid-area: item_price;
+}
+
+.item_total{
+    grid-area: item_total;
+}
+
+.remove_button{
+    align-items:end;
+    grid-area: remove_button;
+    background-color: transparent;
+    padding-bottom: 0.5rem;
+    border: none;
+}
+
+.remove_button:hover{
+    background: transparent;
+}
+
+.remove_button:hover .icon{
+    background-image: url("../../assets/icon-delete-hover.svg");
+}
+
+.icon{
+    width: 1.5rem;
+    height: 2rem;
+    background: url("../../assets/icon-delete.svg") no-repeat;
+}
+.icon img{
+    display: none;
+}
+
+.invalid input{
+    outline: 1px solid var(--danger);
+}
+
+@media (min-width: 600px){
+    .container{
+    grid-template-areas: "item_name item_quantity item_price item_total remove_button";
+}
+
+    .hideLabelOnDesktop{
+        opacity: 0;
+        border: 1px solid red !important;
+    }
+}

@@ -1,0 +1,54 @@
+.button{
+    padding: 1.2rem;
+    border: none;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;   
+    color: #FFF;
+}
+
+.rounded{
+        border-radius: 0.5rem;
+}
+
+.rounded-md{
+        border-radius: 2.4rem;
+}
+
+.rounded-full{
+        border-radius: 50%;
+}
+
+.danger{
+        background: var(--danger);
+}
+
+.danger:hover{
+    background: var(--danger-hover);
+}
+
+.secondary{
+        color: #7E88C3;
+        background: var(--secondary-button);
+}
+
+.secondary:hover{
+    background:var(--secondary-button-hover) ;
+}
+
+.primary{
+        background: var(--primary-button);    
+}
+
+.primary:hover{
+    background: var(--primary-button-hover);
+}
+
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+   .button{
+        padding: 0.5rem 1rem;
+   }
+}

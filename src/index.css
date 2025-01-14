@@ -1,0 +1,124 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  --primary-button: #7C5DFA;
+  --primary-button-hover: #9277FF;
+  --danger: #EC5757;
+  --danger-hover: #FF9797;
+  --box-shadow: 0px 10px 10px -10px #48549F1A;
+  --status-paid: #33D69F;
+  --status-pending: #FF8F00;
+  --status-paid-bg: rgba(51, 214, 159, 0.08);
+  --status-pending-bg: rgba(255, 143, 0, 0.08);
+  --status-draft-bg: rgba(223, 227, 250, 0.2);
+  --draft-button:#373B53;
+  --toastify-toast-background:red !important;
+}
+
+html[data-theme="light"] {
+  --primary-text-color: #0C0E16;
+  --secondary-text-color: #888EB0;
+  --tertiary-text-color:#858BB2;
+  --primary-bg:#F8F8FB;
+  --secondary-bg:#FFFFFF;
+  --tertiary-bg:#373B53;
+  --status-draft:#373B53;
+  --secondary-button:#F9FAFE;
+  --secondary-button-hover: #DFE3FA;
+  --dropdown-border:#DFE3FA;
+  --total-bar-bg:#373B53;
+  --form-bg: #FFFFFF;
+}
+
+html[data-theme="dark"] {
+  --primary-text-color: #FFFFFF;
+  --secondary-text-color: #DFE3FA;
+  --tertiary-text-color: #FFFFFF;
+  --primary-bg:#252945;
+  --secondary-bg:#1E2139;
+  --tertiary-bg:#1E2139;
+  --status-draft: #DFE3FA;
+  --secondary-button-hover: #FFFFFF;
+  --secondary-button: rgba(37, 41, 69, 1);
+  --dropdown-border:#252945;
+  --total-bar-bg:#0C0E16;
+  --form-bg:#141625;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html{
+  font-size: 62.5%;
+}
+
+body{
+   background: var(--primary-bg);
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"] {
+  -webkit-appearance: none;
+  margin: 0;
+}
+ 
+.Toastify__toast {
+  background-color: var(--primary-text-color);
+  box-shadow: var(--box-shadow);
+  font-size: 1.3rem;
+  border-radius: 0;
+}
+
+ .Toastify__toast-container {
+    z-index: 99999;
+    top: 50% !important;
+  }
+
+@media (min-width: 600px) and (max-width: 1024px) {
+  html{
+    font-size: 72%;
+  }
+}
+
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  
+html{
+  font-size: 78%;
+}
+
+.Toastify__toast-container {
+    top: 1rem !important;
+    right: 3rem !important;
+  }
+
+.Toastify__toast {
+  height: 8rem;
+}
+}
+
+@media (min-width: 1281px) {
+ 
+html{
+  font-size: 80%;
+}
+
+.Toastify__toast-container {
+    top: 1rem !important;
+    right: 3rem !important;
+  }
+
+.Toastify__toast {
+  height: 8rem;
+}
+
+}

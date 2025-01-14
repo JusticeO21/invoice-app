@@ -1,0 +1,148 @@
+.bill_to_container{
+    display: grid;
+    gap: 1rem;
+}
+
+.bill_to_container h3{
+    color: var(--primary-button);
+}
+
+.adress_add_ons{
+    position: relative;
+    flex-wrap: wrap;
+    display:grid;
+    grid-template-areas: 
+    "item1 item2"
+    "item3 item3";
+    gap: 1.5rem;
+}
+
+.invoice_settings{
+    gap: 1.5rem;
+    display: grid;
+}
+
+.country{
+    grid-area: item3;
+}
+
+.form{
+    display: grid;
+    gap: 3rem;
+    margin-bottom: 10rem;
+    scroll-behavior: smooth;
+    scrollbar-width: 0;
+      position: relative;
+      flex-wrap: wrap;
+}
+
+.form input{
+    background: var(--secondary-bg);
+    font-weight: 500;
+    padding: 1rem;
+    width: 100%;
+    outline: 1px solid var( --dropdown-border);
+    border: none;
+    color: var(--primary-text-color);
+}
+
+.form input:focus{
+    outline: 1px solid var(--primary-button-hover);
+}
+
+.form label{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.form label p{
+    padding-left: 0;
+    user-select: none;
+}
+
+.form p{
+    padding: 0.85rem;
+}
+
+
+.actions{
+    display: grid;
+    grid-template-areas: 
+    "discard_button draft_button save_button";
+    gap: 1.5rem;
+}
+
+.actions button{
+    justify-content: center;
+}
+
+.draft_button{
+    grid-area: draft_button;
+    background-color: var(--draft-button);
+}
+
+.discard_button{
+    grid-area: discard_button;
+    background-color: var(--secondary-bg);
+}
+
+.save_button{
+    grid-area: save_button ;
+}
+
+.itemsContainer{
+    display: grid;
+    gap: 2rem;;
+}
+
+.itemsContainer h3{
+    color: var(--secondary-text-color);
+}
+
+.add_item_button{
+    justify-content: center;
+    align-items: center;
+}
+
+.setting_container {
+    display: grid;
+    gap: 1.5rem;
+    
+}
+
+.warning p{
+    color: var(--danger);
+    padding: 0;
+}
+
+.edit_form_actions{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.5rem;
+}
+
+.save_edit_button p{
+    color: #FFFFFF;
+}
+
+@media (min-width: 600px) {
+    .adress_add_ons{
+    grid-template-areas: 
+    "item1 item2 item3"
+    }
+
+    .actions{
+    grid-template-areas: 
+    "discard_button . . . draft_button save_button";
+    }
+
+    .invoice_settings{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+}

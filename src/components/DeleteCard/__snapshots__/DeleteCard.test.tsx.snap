@@ -1,0 +1,35 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DeleteCard Component > should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="_container_2136ee"
+  >
+    <h1
+      class="_heading_daf655 _h1_daf655"
+    >
+      Confirm Deletion
+    </h1>
+    <p
+      class="text description undefined"
+    >
+      Are you sure you want to delete invoice #12345? This action cannot be
+        undone.
+    </p>
+    <div
+      class="_actions_2136ee"
+    >
+      <button
+        class="_button_4fb095 _secondary_4fb095 _rounded_4fb095"
+      >
+        Cancel
+      </button>
+      <button
+        class="_button_4fb095 _danger_4fb095 _rounded_4fb095"
+      >
+        Confirm
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

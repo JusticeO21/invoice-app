@@ -1,0 +1,9 @@
+.formError input{
+  border:1px solid var(--danger) !important;
+
+}
+
+.formError .error_message{
+  color:var(--danger)
+}
+

@@ -1,0 +1,33 @@
+.navbar{
+    position: relative;
+    background-color: var(--tertiary-bg);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    z-index: 100;
+}
+
+.user_control{
+    display: flex;
+    margin-right: 2rem;
+    height: auto;
+    gap: 1.8rem;
+    align-items: center;
+}
+
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .navbar{
+        width: auto;
+        height: 100%;
+        flex-direction: column;
+    }
+
+    .user_control{
+        flex-direction: column;
+        margin:0 auto;
+        width: 100%;
+    }
+}
