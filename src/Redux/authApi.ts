@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RootState } from './store'; // Import RootState type from your store
+import { RootState } from './store'; 
 
-// Define types for API request and response data
 interface LoginRequest {
   email: string;
   password: string;

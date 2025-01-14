@@ -11,5 +11,4 @@ export const dataApi = createApi({
   }),
 });
 
-// Export the hook for fetching data
 export const { useFetchDataQuery } = dataApi;
