@@ -1,0 +1,155 @@
+.invoice{
+   margin-top: 3rem;
+   display: grid;
+   gap: 2rem;
+}
+
+
+.invoice a{
+    text-decoration: none;
+}
+
+
+.status, .header, .actions{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.status{
+    width: 100%;
+}
+
+.header{
+    box-shadow: var(--box-shadow);
+    background: var(--secondary-bg);
+    padding: 1rem  1.5rem;
+    border-radius: 0.85rem;
+    width: 100%;
+    
+}
+
+.desktop_header{
+display: none;
+}
+
+.actions button{
+    padding: 1.5rem 2rem;
+}
+
+.invoice_content{
+    box-shadow: var(--box-shadow);
+    background: var(--secondary-bg);
+    height: auto;
+    border-radius: 0.8rem;
+    padding: 1.8rem;
+    
+}
+
+.invoice_content span p strong{
+    color: var(--primary-text-color);
+}
+
+.goBackButton{
+    width: auto !important;
+    background: transparent;
+    
+}
+
+.goBackButton p {
+    color: var(--primary-text-color);
+}
+
+.goBackButton:hover{
+    background: unset;
+}
+
+.invoice_details{
+    display: grid;
+    row-gap: 2rem;
+    grid-template-areas: 
+        "invoice_id ."
+        "invoice_address ."
+        "invoice_issue_date invoice_reciever"
+        "invoice_due_date invoice_reciever"
+        "recievers_mail recievers_mail"
+    ;
+}
+
+.invoice_id{
+    grid-area: invoice_id;
+}
+
+.address{
+    grid-area: invoice_address;
+}
+
+.issueDate{
+    grid-area: invoice_issue_date;
+}
+
+.dueDate{
+    grid-area: invoice_due_date;
+}
+
+.issueDate{
+    grid-area: invoice_issue_date;
+}
+
+.invoice_reciever{
+    grid-area: invoice_reciever;
+}
+
+.reciever_mail{
+    grid-area: recievers_mail;
+}
+
+.invoice_items{
+    padding: 1.8rem;
+    border-radius: 0.5rem;
+    box-shadow: var(--box-shadow);
+    background: var(--primary-bg);
+    margin-top: 2rem;
+}
+
+.mobile_heading{
+    font-size: 1.4rem;
+}
+
+.total{
+    background: var(--total-bar-bg);
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+    align-items: center;
+    border-radius:0 0 0.5rem 0.5rem;
+}
+
+.total p {
+    color:#FFFFFF;
+    font-weight: 700;
+}
+
+@media (min-width: 600px){
+
+    .invoice_details{
+        grid-template-areas: 
+        "invoice_id . . invoice_address"
+        "invoice_issue_date invoice_reciever recievers_mail recievers_mail"
+        "invoice_due_date invoice_reciever . ."  
+    ;
+    }
+
+    .desktop_header{
+        display: flex;
+    }
+
+    .status{
+        width: unset;
+    }
+
+    .mobile_header{
+        display: none;
+    }
+}
