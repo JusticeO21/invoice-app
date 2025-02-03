@@ -3,7 +3,6 @@ import { describe, it, expect, vi } from "vitest";
 import DropDown from "./DropDown";
 import styles from "./DropDown.module.css";
 
-
 vi.mock("../text/Text", () => ({
   Text: ({ children }: { children: React.ReactNode }) => (
     <span>{children}</span>

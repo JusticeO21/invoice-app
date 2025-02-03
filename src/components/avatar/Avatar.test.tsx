@@ -1,20 +1,20 @@
 import { render, screen } from "@testing-library/react";
 import Avatar from "./Avatar";
 import { expect, vi, describe, test } from "vitest";
-import "@testing-library/jest-dom"; 
+import "@testing-library/jest-dom";
 
 type AvatarProps = {
   src: string;
   alt: string;
-    size?: "small" | "medium" | "large";
-    radius: string;
-    className: string;
+  size?: "small" | "medium" | "large";
+  radius: string;
+  className: string;
 };
 
 vi.mock("../icon/Icon.tsx", () => ({
   __esModule: true,
-    default: ({ src, alt, size, radius, className }: AvatarProps) => (
-      //@ts-ignore
+  default: ({ src, alt, size, radius, className }: AvatarProps) => (
+    //@ts-ignore
     <div data-testid="mock-icon" className={className} alt={alt}>
       Mocked Icon: {src} - {size} - {radius}
     </div>
@@ -46,12 +46,12 @@ describe("Avatar Component", () => {
     );
 
     let icon = screen.getByTestId("mock-icon");
-    expect(icon.className).toContain("small"); 
+    expect(icon.className).toContain("small");
 
     rerender(<Avatar src="avatar.jpg" alt="John Doe" size="medium" />);
 
     icon = screen.getByTestId("mock-icon");
-    expect(icon.className).toContain("medium"); 
+    expect(icon.className).toContain("medium");
 
     rerender(<Avatar src="avatar.jpg" alt="John Doe" size="large" />);
 

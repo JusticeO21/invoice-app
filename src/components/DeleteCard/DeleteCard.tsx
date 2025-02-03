@@ -1,25 +1,26 @@
-import React from 'react'
-import styles from "./DeleteCard.module.css"
-import { Heading } from '../heading/Heading'
-import { Text } from '../text/Text'
-import Button from '../button/Button'
+import React from "react";
+import styles from "./DeleteCard.module.css";
+import { Heading } from "../heading/Heading";
+import { Text } from "../text/Text";
+import Button from "../button/Button";
 
 type DeleteProps = {
   invoiceId: string;
   onDelete: () => void;
   onCancel: () => void;
+  isLoading?: boolean;
 };
 
-function DeleteCard({ invoiceId, onDelete, onCancel }: DeleteProps) {
-    function handleDelete(event: React.MouseEvent) {
-        event.stopPropagation();
-        onDelete();
-    }
+function DeleteCard({ invoiceId, onDelete, onCancel, isLoading }: DeleteProps) {
+  function handleDelete(event: React.MouseEvent) {
+    event.stopPropagation();
+    onDelete();
+  }
 
-    function handleCancel(event: React.MouseEvent) {
-        event.stopPropagation();
-        onCancel();
-    }
+  function handleCancel(event: React.MouseEvent) {
+    event.stopPropagation();
+    onCancel();
+  }
 
   return (
     <div className={styles.container}>
@@ -30,13 +31,15 @@ function DeleteCard({ invoiceId, onDelete, onCancel }: DeleteProps) {
       </Text>
 
       <div className={styles.actions}>
-        <Button variant="secondary" onClick={handleCancel}>
+        <Button variant="secondary" onClick={handleCancel} disabled={isLoading}>
           Cancel
         </Button>
-        <Button variant="danger" onClick={handleDelete}>Confirm</Button>
+        <Button variant="danger" onClick={handleDelete} disabled={isLoading}>
+          {isLoading ? "...Loading" : "Confirm"}
+        </Button>
       </div>
     </div>
   );
 }
 
-export default DeleteCard
+export default DeleteCard;

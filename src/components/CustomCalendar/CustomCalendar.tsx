@@ -26,7 +26,7 @@ interface CalandarProps extends HTMLProps<HTMLDivElement> {
 const Calandar: React.FC<CalandarProps> = ({
   selectedDate,
   onSelectDate,
-  className
+  className,
 }) => {
   const [currentMonth, setCurrentMonth] = useState(selectedDate);
 
@@ -60,7 +60,7 @@ const Calandar: React.FC<CalandarProps> = ({
   return (
     <div className={calanderClassNames}>
       <div className={styles.header}>
-        <Button 
+        <Button
           type="button"
           onClick={handlePreviousMonth}
           className={styles.navButton}
@@ -70,14 +70,19 @@ const Calandar: React.FC<CalandarProps> = ({
         <Heading className={styles.monthLabel} variant="h3">
           {format(currentMonth, "MMM yyyy")}
         </Heading>
-        <Button type="button" onClick={handleNextMonth} className={styles.navButton}>
+        <Button
+          type="button"
+          onClick={handleNextMonth}
+          className={styles.navButton}
+        >
           <Icon alt="Go to next month" src={rightArrow} />
         </Button>
       </div>
 
       <div className={styles.daysGrid}>
         {daysInCalendar.map((day) => (
-          <Button type="button"
+          <Button
+            type="button"
             key={day.toString()}
             className={`${styles.dayButton} ${
               isToday(day) ? styles.today : ""

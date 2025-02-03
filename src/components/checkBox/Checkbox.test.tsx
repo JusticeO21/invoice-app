@@ -3,7 +3,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import Checkbox from "./Checkbox";
-import styles from "./Checkbox.module.css"
+import styles from "./Checkbox.module.css";
 
 describe("Checkbox Component", () => {
   it("should render checkbox with label", () => {
@@ -86,7 +86,7 @@ describe("Checkbox Component", () => {
       />
     );
 
-      const checkmark = screen.getByTestId("checkbox-span").querySelector("span");
-      expect(checkmark).toHaveClass(styles.hiddenMark); 
+    const checkmark = screen.getByTestId("checkbox-span").querySelector("span");
+    expect(checkmark).toHaveClass(styles.hiddenMark);
   });
 });

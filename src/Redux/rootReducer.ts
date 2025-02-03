@@ -1,14 +1,14 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { dataApi } from "./dataApi";
 import { authApi } from "./authApi";
 import FilterReducer from "./invoiceReducer";
-import DialogReducer from "./dialogReducer"
+import DialogReducer from "./dialogReducer";
+import authReducer from "./authSlice";
 
 const rootReducer = combineReducers({
-    [dataApi.reducerPath]: dataApi.reducer,
-     [authApi.reducerPath]: authApi.reducer,
-    "invoice": FilterReducer,
-    "dialog":DialogReducer
-})
+  [authApi.reducerPath]: authApi.reducer,
+  invoice: FilterReducer,
+  dialog: DialogReducer,
+  auth: authReducer,
+});
 
-export default rootReducer
+export default rootReducer;

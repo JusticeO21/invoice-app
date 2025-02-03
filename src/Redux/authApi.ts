@@ -1,71 +1,80 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RootState } from './store'; 
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { RootState } from "./store";
+import type { Invoice, FormInvoice } from "../types/AppDataType";
 
 interface LoginRequest {
-  email: string;
+  username: string;
   password: string;
 }
 
 interface LoginResponse {
-  user: {
-    id: string;
-    name: string;
-    email: string;
-  };
   token: string;
 }
 
-interface RegisterRequest {
-  name: string;
-  email: string;
-  password: string;
-}
-
-interface RegisterResponse {
-  message: string;
-}
-
-interface UserProfile {
-  id: string;
-  name: string;
-  email: string;
-}
-
 export const authApi = createApi({
-  reducerPath: 'authApi',
+  reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: '/api',
+    baseUrl: "https://invoice-app-bknd-strapi-cloud.onrender.com",
     prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState);
+      const token = (getState() as RootState).auth.token;
       if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
+        headers.set("Authorization", `Bearer ${token}`);
       }
       return headers;
     },
   }),
+  tagTypes: ["Invoice", "[]Invoice"],
   endpoints: (builder) => ({
     login: builder.mutation<LoginResponse, LoginRequest>({
       query: (credentials) => ({
-        url: '/auth/login',
-        method: 'POST',
+        url: "/login",
+        method: "POST",
         body: credentials,
       }),
     }),
-    register: builder.mutation<RegisterResponse, RegisterRequest>({
-      query: (data) => ({
-        url: '/auth/register',
-        method: 'POST',
-        body: data,
-      }),
+
+    fetchAllInvoices: builder.query<Invoice[], void>({
+      query: () => "/invoices",
+      providesTags: ["[]Invoice"],
     }),
-    fetchProfile: builder.query<UserProfile, void>({
-      query: () => '/auth/me',
+
+    fetchInvoiceById: builder.query<Invoice, string>({
+      query: (id: string) => `/invoices/${id}`,
+      providesTags: ["Invoice"],
+    }),
+
+    updateInvoiceById: builder.mutation<Invoice, Invoice>({
+      query: (invoice: Invoice) => ({
+        url: `/invoices/${invoice.id}`,
+        method: "PUT",
+        body: { ...invoice },
+      }),
+      invalidatesTags: ["Invoice", "[]Invoice"],
+    }),
+
+    addInvoice: builder.mutation<Invoice, FormInvoice>({
+      query: (invoice: Invoice) => ({
+        url: `/invoices`,
+        method: "POST",
+        body: { ...invoice },
+      }),
+      invalidatesTags: ["[]Invoice"],
+    }),
+
+    deleteInvoice: builder.mutation<Invoice, string>({
+      query: (id: string) => ({
+        url: `/invoices/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["[]Invoice"],
     }),
   }),
 });
-
 export const {
   useLoginMutation,
-  useRegisterMutation,
-  useFetchProfileQuery,
+  useFetchAllInvoicesQuery,
+  useFetchInvoiceByIdQuery,
+  useAddInvoiceMutation,
+  useDeleteInvoiceMutation,
+  useUpdateInvoiceByIdMutation,
 } = authApi;

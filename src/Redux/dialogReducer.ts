@@ -1,23 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type invoiceState = {
-    openDialog:boolean
-}
+  openDialog: boolean;
+};
 
 const initialState: invoiceState = {
-    openDialog: false
-    
-}
+  openDialog: false,
+};
 
 const DialogSlice = createSlice({
-    name: "dialog",
-    initialState,
-    reducers: ({
-        toggleDialog: (state) => {
-            state.openDialog = !state.openDialog
-       }
-    })
+  name: "dialog",
+  initialState,
+  reducers: {
+    toggleDialog: (state) => {
+      state.openDialog = !state.openDialog;
+    },
+  },
 });
 
-export const {toggleDialog} = DialogSlice.actions
+export const { toggleDialog } = DialogSlice.actions;
 export default DialogSlice.reducer;

@@ -1,5 +1,5 @@
 // import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, it, expect} from "vitest";
+import { describe, it, expect } from "vitest";
 // import Filter from "./Filter";
 // import { useAppSelector, useAppDispatch } from "../../Hooks/useRedux";
 // import { FilterInvoice } from "../../Redux/invoiceReducer";
@@ -73,7 +73,7 @@ import { describe, it, expect} from "vitest";
 //     render(<Filter options={mockOptions} />);
 //      const button = screen.getByRole("button", { name: /filter/i });
 //     fireEvent.click(button);
-      
+
 //     const checkbox = screen.getByLabelText("Closed");
 
 //     expect(checkbox).toBeChecked();

@@ -23,34 +23,32 @@ const InvoiceCard: React.FC<InvoiceCardProps> = ({
   amount,
   status,
 }) => {
+  return (
+    <Link to={`/invoice/${invoiceId}`}>
+      <article className={styles.card}>
+        <header className={styles.header}>
+          <Heading className={styles.title} variant="h3">
+            <span>#</span>
+            {invoiceId}
+          </Heading>
+        </header>
 
+        <time className={styles.dueDate} dateTime={dueDate}>
+          <Text>Due {new Date(dueDate).toDateString()}</Text>
+        </time>
 
-    return (
-      <Link to={`/invoice/${invoiceId}`}>
-        <article className={styles.card}>
-          <header className={styles.header}>
-            <Heading className={styles.title} variant="h3">
-              <span>#</span>
-              {invoiceId}
-            </Heading>
-          </header>
+        <Text className={styles.name}>{name}</Text>
+        <Text className={styles.amount}>{formatCurrency(amount)}</Text>
+        <Badge className={styles.badge} variant={status}>
+          {status}
+        </Badge>
 
-          <time className={styles.dueDate} dateTime={dueDate}>
-            <Text>Due {new Date(dueDate).toDateString()}</Text>
-          </time>
-
-          <Text className={styles.name}>{name}</Text>
-          <Text className={styles.amount}>{formatCurrency(amount)}</Text>
-          <Badge className={styles.badge} variant={status}>
-            {status}
-          </Badge>
-
-          <footer className={styles.footer}>
-            <Icon src={rightArrow} alt="arrow-right" />
-          </footer>
-        </article>
-      </Link>
-    );
+        <footer className={styles.footer}>
+          <Icon src={rightArrow} alt="arrow-right" />
+        </footer>
+      </article>
+    </Link>
+  );
 };
 
 export default InvoiceCard;

@@ -22,10 +22,10 @@
 }
 
 
-@media (min-width: 1025px) and (max-width: 1280px) {
+@media (min-width: 1025px)  {
     .main{
         flex: 1;
-        padding: 3rem 10rem ;
+        padding: 3rem 10rem;
     }
 
   .app{

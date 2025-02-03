@@ -1,0 +1,44 @@
+.pageContainer{
+    height: 100vh;
+    background-color: #080710;
+    display: flex;
+    padding: 10rem 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.background{
+    width: 100%;
+    height: 90vh;
+    position: relative;
+    padding: 5rem;
+}
+
+@media (min-width: 600px) and (max-width: 1024px) {
+
+    .pageContainer{
+        padding-left: 3rem;
+        padding-right: 3rem;
+
+    }
+
+    .background{
+       height: auto;
+        padding: 15rem 5rem;
+    }
+}
+
+@media (min-width: 1025px) {
+    .background{
+        height: 40rem;
+        width: 27rem;  
+        padding: 0;
+    }
+}
+
+@media (min-width: 1281px) {
+    .background{
+        height: 45rem;
+        width: 29rem;  
+    }
+}

@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import styles from "./Dialog.module.css"; 
+import styles from "./Dialog.module.css";
 
 interface DialogProps {
   isOpen: boolean;
@@ -40,6 +40,6 @@ function Dialog({ isOpen, onClose, children }: DialogProps) {
       </div>
     </div>
   );
-};
+}
 
 export default Dialog;

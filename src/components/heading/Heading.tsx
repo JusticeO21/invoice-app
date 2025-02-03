@@ -10,10 +10,10 @@ interface HeaderProps {
 
 type HeadingProps = HeaderProps & ComponentPropsWithoutRef<"h1">;
 
-export function Heading ({
+export function Heading({
   children,
   variant = "h1",
-  className ,
+  className,
   ...props
 }: HeadingProps) {
   const Tag: ElementType = variant;
@@ -24,4 +24,4 @@ export function Heading ({
       {children}
     </Tag>
   );
-};
+}

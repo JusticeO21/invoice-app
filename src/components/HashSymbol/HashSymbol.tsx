@@ -1,9 +1,7 @@
-import styles from "./HashSymbol.module.css"
+import styles from "./HashSymbol.module.css";
 
 function HashSymbol() {
-  return (
-    <span className={styles.hash}>#</span>
-  )
+  return <span className={styles.hash}>#</span>;
 }
 
-export default HashSymbol
+export default HashSymbol;

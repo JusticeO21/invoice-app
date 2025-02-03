@@ -5,24 +5,21 @@ import classNames from "classnames";
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   variant?: "primary" | "secondary" | "tertiary" | "danger";
-  radius?:
-    | "rounded"
-    | "rounded-md"
-    | "rounded-full";
+  radius?: "rounded" | "rounded-md" | "rounded-full";
 }
 
-function Button ({
+function Button({
   children,
   variant = "primary",
   radius = "rounded",
   className,
   ...props
-}: ButtonProps)  {
+}: ButtonProps) {
   const buttonClass = classNames(
-    styles.button, 
+    styles.button,
     styles[variant],
-    styles[radius], 
-    className 
+    styles[radius],
+    className
   );
 
   return (
@@ -30,6 +27,6 @@ function Button ({
       {children}
     </button>
   );
-};
+}
 
 export default Button;

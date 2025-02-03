@@ -1,0 +1,59 @@
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content{
+    width: 80vw;
+    text-align: center;
+}
+
+.content header h1{
+    font-size: 3.5rem;
+}
+
+.content header p{
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.decorator{
+    height: 0.4rem;
+    width: 10rem;
+    background: var(--primary-button);
+    border-radius: 2rem;
+    margin: 1.7rem auto;
+}
+
+main p{
+    font-weight: 600;
+    font-size: 1.2rem !important;
+}
+
+.container footer button{
+    margin: 1rem auto;
+}
+
+@media (min-width: 600px) and (max-width: 1024px) {
+ .content{
+    width: 50vw;
+ }
+
+.container main p{
+    font-size: 1.5rem !important;
+ }
+}
+
+
+@media (min-width: 1025px) {
+  .content {
+    width: 30rem;
+  }
+
+  .container button{
+    padding: 1rem 2rem;
+  }
+}
+

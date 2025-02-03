@@ -37,7 +37,6 @@ describe("InvoiceCard component", () => {
       screen.getByText(formatCurrency(invoiceData.amount))
     ).toBeInTheDocument();
 
-
     expect(screen.getByText(invoiceData.status)).toBeInTheDocument();
   });
 

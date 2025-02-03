@@ -16,13 +16,8 @@ function Badge({
   ariaLive = "polite",
   className,
   ...props
-}:BadgeProps){
-  const badgeClass = classNames(
-    styles.badge,
-    styles[variant],
-    className
-
-  );
+}: BadgeProps) {
+  const badgeClass = classNames(styles.badge, styles[variant], className);
 
   return (
     <span
@@ -32,10 +27,10 @@ function Badge({
       aria-live={ariaLive}
       role="status"
     >
-      <span className={styles.oval} aria-hidden="true" role="presentation"/>{" "}
+      <span className={styles.oval} aria-hidden="true" role="presentation" />{" "}
       {children}
     </span>
   );
-};
+}
 
 export default Badge;

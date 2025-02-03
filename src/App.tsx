@@ -1,45 +1,28 @@
-import {useEffect} from "react"
-import styles from './App.module.css'
-import Navbar from './components/Navbar/Navbar';
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import HomePage from './pages/HomePage/HomePage';
-import {useAppDispatch, useAppSelector } from "./Hooks/useRedux";
-import { useFetchDataQuery } from "./Redux/dataApi";
-import { loadInvoiceData } from "./Redux/invoiceReducer";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import HomePage from "./pages/HomePage/HomePage";
 import InvoiceDetailsPage from "./pages/InvoiceDetailsPage/InvoiceDetailsPage";
-import Dialog from "./pages/DeleteDialog/DeleteDialog";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer,Zoom } from "react-toastify"; 
+import LoginPage from "./pages/LoginPage/LoginPage";
+import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
+import NotFoundPage from "./pages/404Page/404Page";
 
 function App() {
-  const { invoiceList, invoiceDataHasAlreadyBeenLoaded } = useAppSelector((state) => state.invoice);
-  const dispatch = useAppDispatch();
-  const { data } = useFetchDataQuery();
-
-  useEffect(() => {
-    if (data &&  !invoiceDataHasAlreadyBeenLoaded && invoiceList.length === 0) {
-      dispatch(loadInvoiceData(data));
-    }
-  }, [data]);
-  
   return (
     <Router>
-      <div className={styles.app}>
-        <header>
-          <Navbar />
-        </header>
-
-        <main className={styles.main}>
-          { <Routes>
-              <Route index element={<HomePage />} />
-              <Route path="/invoice" element={<Navigate to="/" />} />
-              <Route path="/invoice/:invoiceId" element={<InvoiceDetailsPage />}/>
-            </Routes> 
-          }
-          <ToastContainer transition={Zoom}/>
-        </main>
-          <Dialog />
-      </div>
+      <Routes>
+        <Route element={<ProtectedRoute />}>
+          <Route index element={<HomePage />} />
+          <Route path="/invoice" element={<Navigate to="/" replace />} />
+          <Route path="/invoice/:invoiceId" element={<InvoiceDetailsPage />} />
+        </Route>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </Router>
   );
 }

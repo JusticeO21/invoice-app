@@ -4,8 +4,12 @@ import styles from "./Filter.module.css";
 import Icon from "../icon/Icon";
 import arrowDown from "../../assets/icon-arrow-down.svg";
 import { Text } from "../text/Text";
-import { FilterInvoice } from "../../Redux/invoiceReducer";
+import {
+  FilterInvoice,
+  updateAvailableNumberOfInvoices,
+} from "../../Redux/invoiceReducer";
 import { useAppDispatch, useAppSelector } from "../../Hooks/useRedux";
+import { useFetchAllInvoicesQuery } from "../../Redux/authApi";
 
 interface FilterOption {
   label: string;
@@ -19,10 +23,12 @@ interface FilterProps {
 
 const mediaQuery = window.matchMedia("(max-width:600px)");
 
-function Filter({ options }:FilterProps){
+function Filter({ options }: FilterProps) {
   const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(mediaQuery.matches);
+  const selelectedOption = useAppSelector((state) => state.invoice.FilterBy);
+  const { data, isError } = useFetchAllInvoicesQuery();
 
   useEffect(() => {
     const handleResize = (e: MediaQueryListEvent) => {
@@ -35,7 +41,19 @@ function Filter({ options }:FilterProps){
     };
   }, []);
 
-  const selelectedOption = useAppSelector((state) => state.invoice.FilterBy);
+  useEffect(() => {
+    if (data) {
+      const filteredInvoices = data.filter((invoice) => {
+        if (selelectedOption) return invoice.status === selelectedOption;
+        return true;
+      });
+      dispatch(updateAvailableNumberOfInvoices(filteredInvoices.length));
+    }
+
+    if (isError) {
+      dispatch(updateAvailableNumberOfInvoices(0));
+    }
+  }, [data]);
 
   const toggleFilter = () => setIsOpen((prev) => !prev);
 
@@ -44,6 +62,12 @@ function Filter({ options }:FilterProps){
       const { name } = event.target;
       if (selelectedOption === name) return dispatch(FilterInvoice(""));
       dispatch(FilterInvoice(name));
+      if (data) {
+        const filteredInvoices = data.filter(
+          (invoice) => invoice.status === name
+        );
+        dispatch(updateAvailableNumberOfInvoices(filteredInvoices.length));
+      }
     },
     [selelectedOption, dispatch]
   );
@@ -91,6 +115,6 @@ function Filter({ options }:FilterProps){
       )}
     </div>
   );
-};
+}
 
 export default Filter;

@@ -1,33 +1,37 @@
-import Button from '../../components/button/Button';
-import Icon from '../../components/icon/Icon';
+import Button from "../../components/button/Button";
+import Icon from "../../components/icon/Icon";
 import LeftArrow from "../../assets/icon-arrow-left.svg";
 import styles from "./EditInvoiceForm.module.css";
-import { Text } from '../../components/text/Text';
-import { Heading } from '../../components/heading/Heading';
-import InvoiceForm from '../../components/InvoiceForm/Form';
-import type { FormData } from '../../types/FormDatatype';
-import type { Invoice } from '../../types/AppDataType';
-import type { Item } from '../../types/AppDataType';
-import { useAppDispatch, useAppSelector } from '../../Hooks/useRedux';
-import { editInvoice as hideInvoiceForm, updateInvoice } from '../../Redux/invoiceReducer';
-import { useParams } from 'react-router-dom';
-import { findItemById } from '../InvoiceDetailsPage/utils';
-import HashSymbol from '../../components/HashSymbol/HashSymbol';
-import { calculateDueDate, generateRandomId } from '../NewInvoiceForm/utils';
-import { format } from 'date-fns';
-import { toast } from 'react-toastify';
+import { Text } from "../../components/text/Text";
+import { Heading } from "../../components/heading/Heading";
+import InvoiceForm from "../../components/InvoiceForm/Form";
+import type { FormData } from "../../types/FormDatatype";
+import type { Invoice } from "../../types/AppDataType";
+import type { Item } from "../../types/AppDataType";
+import { useAppDispatch, useAppSelector } from "../../Hooks/useRedux";
+import { editInvoice as hideInvoiceForm } from "../../Redux/invoiceReducer";
+import { useParams } from "react-router-dom";
+import HashSymbol from "../../components/HashSymbol/HashSymbol";
+import { calculateDueDate, generateRandomId } from "../NewInvoiceForm/utils";
+import { format } from "date-fns";
+import { toast } from "react-toastify";
+import {
+  useUpdateInvoiceByIdMutation,
+  useFetchInvoiceByIdQuery,
+} from "../../Redux/authApi";
 
-function calculateTotal(arr:Item[]) {
+function calculateTotal(arr: Item[]) {
   return arr.reduce((total, currentItem) => total + currentItem.total, 0);
 }
 
 function EditInvoice() {
-  const dispatch = useAppDispatch()
-  const { editInvoice} = useAppSelector(state => state.invoice);
+  const dispatch = useAppDispatch();
+  const { editInvoice } = useAppSelector((state) => state.invoice);
   const { invoiceId } = useParams();
-  const data = useAppSelector((state) => state.invoice.invoiceList);
-  const fetchedInvoice = findItemById(data, invoiceId as string);
-
+  // const data = useAppSelector((state) => state.invoice.invoiceList);
+  // const fetchedInvoice = findItemById(data, invoiceId as string);
+  const [updateInvoice, { isLoading }] = useUpdateInvoiceByIdMutation();
+  const { data: fetchedInvoice } = useFetchInvoiceByIdQuery(invoiceId || "");
   const defaultInvoice: FormData = {
     senderStreetAdress: fetchedInvoice?.senderAddress.street || "",
     senderCity: fetchedInvoice?.senderAddress.city || "",
@@ -39,15 +43,14 @@ function EditInvoice() {
     clientCity: fetchedInvoice?.clientAddress.city || "",
     clientPostcode: fetchedInvoice?.clientAddress.postCode || "",
     clientCountry: fetchedInvoice?.clientAddress.country || "",
-    createdAt: format(fetchedInvoice?.createdAt || new Date(), "yyyy-MM-dd") || "",
+    createdAt:
+      format(fetchedInvoice?.createdAt || new Date(), "yyyy-MM-dd") || "",
     paymentTerms: String(fetchedInvoice?.paymentTerms) || "1",
     description: fetchedInvoice?.description || "",
     items: fetchedInvoice?.items || [],
   };
 
-  const handleSaveEditChanges = (data: FormData) => {
-    const notify = () => toast.success(`Success! Invoice ${invoiceId} has been successfully updated.`);
-
+  const handleSaveEditChanges = async (data: FormData) => {
     const newInvoice: Invoice = {
       id: invoiceId || generateRandomId(),
       createdAt: format(data.createdAt, "yyyy-MM-dd"),
@@ -76,25 +79,48 @@ function EditInvoice() {
       total: calculateTotal(data.items),
     };
 
-    dispatch(updateInvoice(newInvoice))
-    notify()
-  }
+    try {
+      const notifyError = () => toast.error("Ouch! Something went wrong");
+      const updatedInvoice = await updateInvoice(newInvoice);
+      updatedInvoice.data &&
+        toast.success(
+          `Success! Invoice ${updatedInvoice.data?.id} has been successfully updated.`
+        );
+      updatedInvoice.error && notifyError();
+    } catch (error) {
+      toast.error("Please check your connection");
+    }
+  };
 
   const handleHideInvoice = () => {
-    dispatch(hideInvoiceForm(false))
-  }
+    dispatch(hideInvoiceForm(false));
+  };
 
   return (
     <>
-      <span className={`${styles.container} ${editInvoice && styles.show_container}`} onClick={handleHideInvoice}> </span>
-       <div className={`${styles.invoice_form_wrapper} ${editInvoice && styles.show_form}`}>
+      <span
+        className={`${styles.container} ${
+          editInvoice && styles.show_container
+        }`}
+        onClick={handleHideInvoice}
+      >
+        {" "}
+      </span>
+      <div
+        className={`${styles.invoice_form_wrapper} ${
+          editInvoice && styles.show_form
+        }`}
+      >
         <header className={styles.header}>
           <Button className={styles.goBackButton} onClick={handleHideInvoice}>
             <Icon src={LeftArrow} alt="Go back" />
             <Text>Go back</Text>
           </Button>
 
-          <Heading>Edit <HashSymbol/>{invoiceId}</Heading>
+          <Heading>
+            Edit <HashSymbol />
+            {invoiceId}
+          </Heading>
         </header>
 
         <InvoiceForm
@@ -102,9 +128,9 @@ function EditInvoice() {
           isANewInvoice={false}
           defaultFormData={defaultInvoice}
           onCancel={handleHideInvoice}
+          isLoading={isLoading}
         />
       </div>
-      
     </>
   );
 }

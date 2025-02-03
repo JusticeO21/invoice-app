@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/button/Button";
 import Badge from "../../components/Badge/Badge";
 import styles from "./InvoiceDetailsPage.module.css";
@@ -6,44 +7,41 @@ import { Text } from "../../components/text/Text";
 import { Heading } from "../../components/heading/Heading";
 import Table from "../../components/Table/Table";
 import { useParams, Link } from "react-router-dom";
-import { findItemById } from "./utils";
-import { useAppSelector, useAppDispatch } from "../../Hooks/useRedux";
+import { useAppDispatch } from "../../Hooks/useRedux";
 import type { Invoice } from "../../types/AppDataType";
 import leftArrow from "../../assets/icon-arrow-left.svg";
 import Icon from "../../components/icon/Icon";
 import { formatCurrency } from "../../components/InvoiceCard/utils";
 import { toggleDialog } from "../../Redux/dialogReducer";
-import {
-  updateInvoiceToBeDeleted,
-  updateInvoice,
-} from "../../Redux/invoiceReducer";
+import { updateInvoiceToBeDeleted } from "../../Redux/invoiceReducer";
 import { format } from "date-fns";
 import EditInvoiceForm from "../EditInvoiceForm/EditInvoiceForm";
 import { editInvoice as showEditInvoiceForm } from "../../Redux/invoiceReducer";
 import HashSymbol from "../../components/HashSymbol/HashSymbol";
+import {
+  useUpdateInvoiceByIdMutation,
+  useFetchInvoiceByIdQuery,
+} from "../../Redux/authApi";
+import { toast } from "react-toastify";
 
 const Invoice: React.FC<{}> = () => {
-  const data = useAppSelector((state) => state.invoice.invoiceList);
   const dispatch = useAppDispatch();
   const { invoiceId } = useParams();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [invoice, setInvoice] = useState<Invoice | undefined>(undefined);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [updateInvoice, { isLoading }] = useUpdateInvoiceByIdMutation();
+  const {
+    data: invoice,
+    isLoading: loading,
+    error,
+    refetch,
+  } = useFetchInvoiceByIdQuery(invoiceId || "");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const fetchedInvoice = findItemById(data, invoiceId as string);
-      setInvoice(fetchedInvoice);
-    } catch (err) {
-      setError("Failed to load invoice data.");
-    } finally {
-      setLoading(false);
+    if (error && `status` in error) {
+      navigate("/login");
     }
-  }, [data, invoiceId]);
+  }, [error]);
 
   function handleDeleteDialog() {
     dispatch(toggleDialog());
@@ -58,13 +56,30 @@ const Invoice: React.FC<{}> = () => {
     setIsEditModalOpen(false);
   }
 
-  function handleMarkAsRead() {
+  async function handleMarkAsRead() {
     if (invoice?.status === "paid") return;
-    invoice && dispatch(updateInvoice({ ...invoice, status: "paid" }));
+    try {
+      const notifyError = () => toast.error("Ouch! Something went wrong");
+      if (invoice) {
+        const updatedInvoice = await updateInvoice({
+          ...invoice,
+          status: "paid",
+        });
+
+        if (updatedInvoice.data) {
+          refetch();
+          toast.success(
+            `Success! Your new invoice(${updatedInvoice.data?.id}) has been successfully updated.`
+          );
+        }
+        updatedInvoice.error && notifyError();
+      }
+    } catch (error) {
+      toast.error("Please check your connection");
+    }
   }
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
 
   return (
     <section className={styles.invoice}>
@@ -78,7 +93,9 @@ const Invoice: React.FC<{}> = () => {
       <header className={`${styles.header}`}>
         <div className={styles.status}>
           <Text>Status</Text>
-          <Badge variant={invoice?.status}>{invoice?.status}</Badge>
+          <Badge variant={invoice?.status}>
+            {isLoading ? "..." : invoice?.status}
+          </Badge>
         </div>
 
         <div className={`${styles.actions} ${styles.desktop_header}`}>
@@ -111,7 +128,7 @@ const Invoice: React.FC<{}> = () => {
         <section className={styles.invoice_details}>
           <span className={styles.invoice_id}>
             <Heading>
-              <HashSymbol/>
+              <HashSymbol />
               {invoice?.id}
             </Heading>
             <Text>Graphic Design {invoice?.description}</Text>

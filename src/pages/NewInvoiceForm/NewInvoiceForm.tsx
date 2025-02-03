@@ -1,32 +1,56 @@
-import Button from '../../components/button/Button';
-import Icon from '../../components/icon/Icon';
+import Button from "../../components/button/Button";
+import Icon from "../../components/icon/Icon";
 import LeftArrow from "../../assets/icon-arrow-left.svg";
 import styles from "./NewInvoiceForm.module.css";
-import { Text } from '../../components/text/Text';
-import { Heading } from '../../components/heading/Heading';
-import InvoiceForm from '../../components/InvoiceForm/Form';
-import type { FormData } from '../../types/FormDatatype';
-import type { Invoice } from '../../types/AppDataType';
-import type { Item } from '../../types/AppDataType';
-import { useAppDispatch, useAppSelector } from '../../Hooks/useRedux';
-import { addInvoice, addNewInvoice as hideInvoiceForm } from '../../Redux/invoiceReducer';
-import { generateRandomId, calculateDueDate } from './utils';
+import { Text } from "../../components/text/Text";
+import { Heading } from "../../components/heading/Heading";
+import InvoiceForm from "../../components/InvoiceForm/Form";
+import type { FormData } from "../../types/FormDatatype";
+import type { FormInvoice } from "../../types/AppDataType";
+import type { Item } from "../../types/AppDataType";
+import { useAppDispatch, useAppSelector } from "../../Hooks/useRedux";
+import { addNewInvoice as hideInvoiceForm } from "../../Redux/invoiceReducer";
+import { calculateDueDate } from "./utils";
 import { format } from "date-fns";
 import { toast } from "react-toastify";
+import { useAddInvoiceMutation } from "../../Redux/authApi";
+import { logout } from "../../Redux/authSlice";
 
-function calculateTotal(arr:Item[]) {
+function calculateTotal(arr: Item[]) {
   return arr.reduce((total, currentItem) => total + currentItem.total, 0);
 }
 
 function NewInvoiceForm() {
-  const dispatch = useAppDispatch()
-  const { addNewInvoice } = useAppSelector(state => state.invoice)
-  const notify = () => toast.success("Success! Your new invoice has been successfully added.");
-  const handleSubmiteAndSend = (data: FormData) => { 
-    const newInvoice: Invoice = {
-      id: generateRandomId(),
+  const dispatch = useAppDispatch();
+  const { addNewInvoice } = useAppSelector((state) => state.invoice);
+  const [addInvoice, { isLoading }] = useAddInvoiceMutation();
+
+  const loadNewInvoice = async (invoice: FormInvoice) => {
+    try {
+      const notifyError = () => toast.error("Ouch! Something went wrong");
+      const addedInvoice = await addInvoice(invoice);
+      addedInvoice.data &&
+        toast.success(
+          `Success! Your new invoice(${addedInvoice.data?.id}) has been successfully added.`
+        );
+      addedInvoice.error && notifyError();
+      if (addedInvoice.error && `status` in addedInvoice.error) {
+        if (addedInvoice.error.status === 403) {
+          dispatch(logout());
+        }
+      }
+    } catch (error) {
+      toast.error("Please check your connection");
+    }
+  };
+
+  const handleSubmiteAndSend = async (data: FormData) => {
+    const newInvoice: FormInvoice = {
       createdAt: format(data.createdAt, "yyyy-MM-dd"),
-      paymentDue: calculateDueDate(format(data.createdAt, 'yyyy-MM-dd'), Number(data.paymentTerms)),
+      paymentDue: calculateDueDate(
+        format(data.createdAt, "yyyy-MM-dd"),
+        Number(data.paymentTerms)
+      ),
       description: data.description,
       paymentTerms: Number(data.paymentTerms),
       clientName: data.clientName,
@@ -48,15 +72,16 @@ function NewInvoiceForm() {
       total: calculateTotal(data.items),
     };
 
-    dispatch(addInvoice(newInvoice));
-    notify();
-  }
+    await loadNewInvoice(newInvoice);
+  };
 
-  const handleSaveAsDraft = (data:FormData) => {
-    const newInvoice: Invoice = {
-      id: generateRandomId(),
+  const handleSaveAsDraft = async (data: FormData) => {
+    const newInvoice: FormInvoice = {
       createdAt: format(data.createdAt, "yyyy-MM-dd"),
-     paymentDue: calculateDueDate(format(data.createdAt, 'yyyy-MM-dd'), Number(data.paymentTerms)),
+      paymentDue: calculateDueDate(
+        format(data.createdAt, "yyyy-MM-dd"),
+        Number(data.paymentTerms)
+      ),
       description: data.description,
       paymentTerms: Number(data.paymentTerms),
       clientName: data.clientName,
@@ -78,19 +103,29 @@ function NewInvoiceForm() {
       total: calculateTotal(data.items),
     };
 
-    dispatch(addInvoice(newInvoice));
-    notify();
-  }
+    await loadNewInvoice(newInvoice);
+  };
 
   const handleHideInvoice = () => {
-    dispatch(hideInvoiceForm(false))
-  }
+    dispatch(hideInvoiceForm(false));
+  };
 
   return (
     <>
-      <span className={`${styles.container} ${addNewInvoice && styles.show_container}`} onClick={handleHideInvoice}> </span>
-     
-       <div className={`${styles.invoice_form_wrapper} ${addNewInvoice && styles.show_form}`}>
+      <span
+        className={`${styles.container} ${
+          addNewInvoice && styles.show_container
+        }`}
+        onClick={handleHideInvoice}
+      >
+        {" "}
+      </span>
+
+      <div
+        className={`${styles.invoice_form_wrapper} ${
+          addNewInvoice && styles.show_form
+        }`}
+      >
         <header className={styles.header}>
           <Button className={styles.goBackButton} onClick={handleHideInvoice}>
             <Icon src={LeftArrow} alt="Go back" />
@@ -104,9 +139,9 @@ function NewInvoiceForm() {
           onSaveAndSend={handleSubmiteAndSend}
           onSaveAsDraft={handleSaveAsDraft}
           onCancel={handleHideInvoice}
+          isLoading={isLoading}
         />
       </div>
-      
     </>
   );
 }

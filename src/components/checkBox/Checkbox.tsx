@@ -1,5 +1,5 @@
 // checkbox.tsx
-import checkMark from "../../assets/icon-check.svg"
+import checkMark from "../../assets/icon-check.svg";
 import Icon from "../icon/Icon";
 
 import React from "react";
@@ -12,12 +12,7 @@ interface CheckboxProps {
   value: string;
 }
 
-function Checkbox ({
-  label,
-  checked,
-  onChange,
-  value,
-}:CheckboxProps)  {
+function Checkbox({ label, checked, onChange, value }: CheckboxProps) {
   const labelClassName = `${styles.label} ${checked ? styles.checked : ""}`;
 
   return (
@@ -47,6 +42,6 @@ function Checkbox ({
       </label>
     </>
   );
-};
+}
 
 export default Checkbox;

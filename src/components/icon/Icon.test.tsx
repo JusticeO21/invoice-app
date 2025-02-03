@@ -49,8 +49,8 @@ describe("Icon Component", () => {
     expect(iconSpan).toHaveClass(customClass);
   });
 
-    it("should apply a fallback size class if an invalid size is provided", () => {
-      //@ts-ignore
+  it("should apply a fallback size class if an invalid size is provided", () => {
+    //@ts-ignore
     render(<Icon src="path/to/icon.svg" alt="icon" size="invalid-size" />);
 
     const iconImage = screen.getByRole("img");
@@ -58,8 +58,8 @@ describe("Icon Component", () => {
     expect(iconImage).toHaveClass(styles.sm);
   });
 
-    it("should apply a fallback radius class if an invalid radius is provided", () => {
-        //@ts-ignore
+  it("should apply a fallback radius class if an invalid radius is provided", () => {
+    //@ts-ignore
     render(<Icon src="path/to/icon.svg" alt="icon" radius="invalid-radius" />);
 
     const iconImage = screen.getByRole("img");

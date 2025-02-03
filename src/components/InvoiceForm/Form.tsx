@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { useForm, SubmitHandler, FieldError, useFieldArray, Controller } from "react-hook-form";
+import {
+  useForm,
+  SubmitHandler,
+  FieldError,
+  useFieldArray,
+  Controller,
+} from "react-hook-form";
 import FormInput from "../TextField/TextField";
 import FormGroup from "./FormGroup";
 import FormLabel from "./FormLabel";
@@ -11,7 +17,7 @@ import Button from "../button/Button";
 import ItemField from "./ItemField";
 import DatePicker from "../DatePicker/DatePicker";
 import type { FormData } from "../../types/FormDatatype";
-import { format } from "date-fns"
+import { format } from "date-fns";
 
 type InvoiceFormProps = {
   onSaveAndSend?: (data: FormData) => void;
@@ -19,14 +25,35 @@ type InvoiceFormProps = {
   onCancel: () => void;
   defaultFormData?: FormData;
   isANewInvoice?: boolean;
+  isLoading: boolean;
 };
 
-const InvoiceForm: React.FC<InvoiceFormProps> = ({onSaveAndSend, onSaveAsDraft, defaultFormData,onCancel, isANewInvoice = true}) => {
-  const { handleSubmit, register, formState: { errors }, reset, control, watch, setValue } = useForm<FormData>({
+// Helper function to extract error messages
+export const getErrorMessage = (error: FieldError | undefined): string => {
+  return error?.message || "";
+};
+
+const InvoiceForm: React.FC<InvoiceFormProps> = ({
+  onSaveAndSend,
+  onSaveAsDraft,
+  defaultFormData,
+  onCancel,
+  isANewInvoice = true,
+  isLoading,
+}) => {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    reset,
+    control,
+    watch,
+    setValue,
+  } = useForm<FormData>({
     defaultValues: defaultFormData || {
-      paymentTerms: "1"
-      , createdAt: format(new Date(), "dd MMM yyyy")
-    }
+      paymentTerms: "1",
+      createdAt: format(new Date(), "dd MMM yyyy"),
+    },
   });
 
   const { fields, append, remove } = useFieldArray({ control, name: "items" });
@@ -34,28 +61,20 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({onSaveAndSend, onSaveAsDraft, 
   const [saveAndSendInvoice, setSaveAndSendInvoice] = useState<boolean>(true);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-     
     if (data.items.length === 0) return setItemListIsEmpty(true);
     if (saveAndSendInvoice) {
-      onSaveAndSend && onSaveAndSend(data); 
+      onSaveAndSend && onSaveAndSend(data);
     } else {
       onSaveAsDraft && onSaveAsDraft(data);
     }
 
     setSaveAndSendInvoice(true);
-    isANewInvoice && reset();
+    isANewInvoice && !isLoading && reset();
   };
 
   const handleDiscard = () => {
     reset();
-    onCancel()
-  }
-
-  // Helper function to extract error messages
-  const getErrorMessage = (
-    error: FieldError| undefined
-  ): string => {
-    return error?.message || "";
+    onCancel();
   };
 
   return (
@@ -148,7 +167,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({onSaveAndSend, onSaveAsDraft, 
               required: "Can't be empty",
               pattern: {
                 value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                message: "Invalid email format"
+                message: "Invalid email format",
               },
             })}
           />
@@ -312,18 +331,20 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({onSaveAndSend, onSaveAsDraft, 
               type="submit"
               radius="rounded-md"
               className={styles.draft_button}
+              disabled={isLoading}
               onClick={() => {
                 setSaveAndSendInvoice(false);
               }}
             >
-              Save As Draft
+              {isLoading ? "...Loading" : "Save As Draft"}
             </Button>
             <Button
               type="submit"
               radius="rounded-md"
+              disabled={isLoading}
               className={styles.save_button}
             >
-              Save & Send
+              {isLoading ? "...Loading" : "Save & Send"}
             </Button>
           </div>
         )}
@@ -344,8 +365,9 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({onSaveAndSend, onSaveAsDraft, 
               type="submit"
               radius="rounded-md"
               className={styles.save_edit_button}
+              disabled={isLoading}
             >
-              <Text>Save Changes</Text>
+              <Text>{isLoading ? "...Loading" : "Save Changes"}</Text>
             </Button>
           </div>
         )}

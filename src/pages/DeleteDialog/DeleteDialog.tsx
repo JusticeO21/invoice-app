@@ -1,40 +1,59 @@
-import {useNavigate } from 'react-router-dom';
-import DeleteCard from '../../components/DeleteCard/DeleteCard'
-import { useAppDispatch, useAppSelector } from '../../Hooks/useRedux';
-import { deleteInvoice, updateInvoiceToBeDeleted } from '../../Redux/invoiceReducer';
-import { toggleDialog } from '../../Redux/dialogReducer';
-import Dialog from '../../components/Dialog/Dialog';
+import { useNavigate } from "react-router-dom";
+import DeleteCard from "../../components/DeleteCard/DeleteCard";
+import { useAppDispatch, useAppSelector } from "../../Hooks/useRedux";
+import { updateInvoiceToBeDeleted } from "../../Redux/invoiceReducer";
+import { toggleDialog } from "../../Redux/dialogReducer";
+import Dialog from "../../components/Dialog/Dialog";
 import { toast } from "react-toastify";
+import { useDeleteInvoiceMutation } from "../../Redux/authApi";
 
 function DeleteInvoice() {
-    const { openDialog: isDialogOpen } = useAppSelector((state) => state.dialog);
-    const invoiceId = useAppSelector(state => state.invoice.deleteInvoiceWithId);
-    const notify = () =>toast.error(`Success! Invoice ${invoiceId} has been successfully deleted.`);
-    
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    function handleConfirmDelete() {
-        dispatch(deleteInvoice(invoiceId || ""));
-        dispatch(updateInvoiceToBeDeleted(""));
-        dispatch(toggleDialog());
-        navigate("/");
-        notify();
-    }
+  const { openDialog: isDialogOpen } = useAppSelector((state) => state.dialog);
+  const invoiceId = useAppSelector(
+    (state) => state.invoice.deleteInvoiceWithId
+  );
+  const [deleteInvoice, { isLoading }] = useDeleteInvoiceMutation();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  async function handleConfirmDelete() {
+    try {
+      const notifyError = () => toast.error("Ouch! Something went wrong");
+      if (invoiceId) {
+        const deletedInvoice = await deleteInvoice(invoiceId);
+        if (!deletedInvoice.error) {
+          dispatch(updateInvoiceToBeDeleted(""));
+          dispatch(toggleDialog());
+          navigate("/");
+          toast.success(
+            `Success! Invoice ${invoiceId} has been successfully deleted.`
+          );
+        }
 
-    function handleCanceDelete() {
-        dispatch(toggleDialog());
+        deletedInvoice.error && notifyError();
+      }
+    } catch (error) {
+      toast.error("Please check your connection");
     }
+  }
 
-    function handleDialogClose() {
-        dispatch(toggleDialog());
-    }
+  function handleCanceDelete() {
+    dispatch(toggleDialog());
+  }
 
-    return (
-      
-        <Dialog isOpen={isDialogOpen} onClose={handleDialogClose}>
-            <DeleteCard invoiceId={invoiceId || ""} onDelete={handleConfirmDelete} onCancel={handleCanceDelete}/>
-        </Dialog>
-  )
+  function handleDialogClose() {
+    dispatch(toggleDialog());
+  }
+
+  return (
+    <Dialog isOpen={isDialogOpen} onClose={handleDialogClose}>
+      <DeleteCard
+        invoiceId={invoiceId || ""}
+        onDelete={handleConfirmDelete}
+        onCancel={handleCanceDelete}
+        isLoading={isLoading}
+      />
+    </Dialog>
+  );
 }
 
-export default DeleteInvoice
+export default DeleteInvoice;

@@ -1,9 +1,13 @@
 import { Heading } from "../heading/Heading";
 import noInvoiceImage from "../../assets/illustration-empty.svg";
-import styles from "./NoInvoice.module.css"
+import styles from "./NoInvoice.module.css";
 import { Text } from "../text/Text";
 
-function NoInvoice () {
+interface NoInvoiceProps {
+  message: string;
+}
+
+function NoInvoice({ message }: NoInvoiceProps) {
   return (
     <section aria-live="polite" className={styles.no_invoice_container}>
       <div
@@ -16,11 +20,9 @@ function NoInvoice () {
       <header>
         <Heading>There is nothing here</Heading>
       </header>
-      <Text className={styles.no_invoice_message}>
-        Create an invoice by clicking the <strong>New Invoice</strong> button and get started
-      </Text>
+      <Text className={styles.no_invoice_message}>{message}</Text>
     </section>
   );
-};
+}
 
 export default NoInvoice;

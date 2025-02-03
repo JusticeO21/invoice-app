@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { Heading } from "./Heading";
-import styles from "./Heading.module.css"
+import styles from "./Heading.module.css";
 
 describe("Heading Component", () => {
   it("should render the children correctly", () => {
@@ -57,7 +57,7 @@ describe("Heading Component", () => {
 
   it("should combine default styles with the className prop", () => {
     const text = "Styled Heading with default styles";
- 
+
     render(
       <Heading variant="h2" className={styles.customClass}>
         {text}

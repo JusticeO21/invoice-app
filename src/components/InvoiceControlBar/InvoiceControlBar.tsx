@@ -1,5 +1,5 @@
 import { Heading } from "../heading/Heading";
-import { Text } from '../text/Text';
+import { Text } from "../text/Text";
 import styles from "./InvoiceControlBar.module.css";
 import Button from "../button/Button";
 import Icon from "../icon/Icon";
@@ -31,12 +31,14 @@ const options: Array<FilterOption> = [
 ];
 
 interface InvoiceControlBarProps {
-    onAddNewInvoice:()=>void
+  onAddNewInvoice: () => void;
 }
 
 function InvoiceControlBar({ onAddNewInvoice }: InvoiceControlBarProps) {
-  const totalInvices = useAppSelector(state => state.invoice.availableInvoices)
-  
+  const totalInvices = useAppSelector(
+    (state) => state.invoice.availableInvoices
+  );
+
   function handleAddNewInvoice(event: React.MouseEvent) {
     event.stopPropagation();
     onAddNewInvoice();
@@ -67,4 +69,4 @@ function InvoiceControlBar({ onAddNewInvoice }: InvoiceControlBarProps) {
   );
 }
 
-export default InvoiceControlBar
+export default InvoiceControlBar;

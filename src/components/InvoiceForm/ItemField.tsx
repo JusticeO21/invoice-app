@@ -4,20 +4,26 @@ import FormGroup from "./FormGroup";
 import FormLabel from "./FormLabel";
 import FormInput from "../TextField/TextField";
 import { Text } from "../text/Text";
-import styles from "./ItemFieled.module.css"
+import styles from "./ItemFieled.module.css";
 import Button from "../button/Button";
-import Icon from '../icon/Icon';
-import deleteIcon from "../../assets/icon-delete.svg"
+import Icon from "../icon/Icon";
+import deleteIcon from "../../assets/icon-delete.svg";
 
 interface ItemFieldProps {
-    control: any;
-    index: number;
-    watch: any;
-    setValue: any;
+  control: any;
+  index: number;
+  watch: any;
+  setValue: any;
   remove: (index: number) => void;
 }
 
-const ItemField: React.FC<ItemFieldProps> = ({ control, index, remove, watch, setValue }) => {
+const ItemField: React.FC<ItemFieldProps> = ({
+  control,
+  index,
+  remove,
+  watch,
+  setValue,
+}) => {
   const item = watch(`items[${index}]`);
   useEffect(() => {
     if (item?.quantity && item?.price) {

@@ -17,8 +17,66 @@
     align-items: center;
 }
 
+.logout_container{
+    position: relative;
+}
 
-@media (min-width: 1025px) and (max-width: 1280px) {
+.logout{
+    color: var(--primary-text);
+    width: 15rem;
+    height: auto;
+    position: absolute;
+    box-shadow: var(--box-shadow);
+    background-color: var(--secondary-bg);
+    border-radius: 0.75rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-direction: column;
+    top: 1rem;
+    right:2rem;
+    padding: 0.8rem;
+}
+
+.logout button{
+    justify-content: center;
+    padding: 0.8rem;
+    font-size: 1.2rem;
+}
+
+.user{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right:1rem;
+}
+
+@media (min-width: 600px) and (max-width: 1024px) {
+    .logout{
+        width: 17rem;
+    }
+
+    .logout button{
+        font-size: 1.3rem;
+    }
+}
+
+
+@media (min-width: 1025px) {
+  .logout{
+    right: unset;
+    top: -7rem;
+    gap: 0.1rem;
+    width: 16rem;
+  }
+
+  .logout button{
+    font-size: 1.1rem;
+  }
+
+}
+
+@media (min-width: 1025px){
     .navbar{
         width: auto;
         height: 100%;
