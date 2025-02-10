@@ -1,0 +1,11 @@
+.formLabel{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.formLabel p{
+    padding-left: 0;
+    user-select: none;
+}

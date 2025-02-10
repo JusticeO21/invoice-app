@@ -60,7 +60,11 @@ function Filter({ options }: FilterProps) {
   const handleCheckboxChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const { name } = event.target;
-      if (selelectedOption === name) return dispatch(FilterInvoice(""));
+
+      if (selelectedOption === name) {
+        data && dispatch(updateAvailableNumberOfInvoices(data.length));
+        return dispatch(FilterInvoice(""));
+      }
       dispatch(FilterInvoice(name));
       if (data) {
         const filteredInvoices = data.filter(

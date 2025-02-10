@@ -1,4 +1,6 @@
+import styles from "./TextField.module.css";
 import { forwardRef, HTMLProps } from "react";
+import classNames from "classnames";
 
 interface TextFieldProps extends HTMLProps<HTMLInputElement> {
   placeholder?: string;
@@ -7,7 +9,8 @@ interface TextFieldProps extends HTMLProps<HTMLInputElement> {
 }
 
 const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
-  ({ placeholder, disabled, type, ...props }, ref) => {
+  ({ placeholder, disabled, type, className, ...props }, ref) => {
+    const textFieldClass = classNames(styles.input, className);
     return (
       <input
         ref={ref}
@@ -15,6 +18,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         placeholder={placeholder}
         {...props}
         disabled={disabled}
+        className={textFieldClass}
       />
     );
   }

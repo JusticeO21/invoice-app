@@ -3,6 +3,7 @@ import InvoiceCard from "../InvoiceCard/InvoiceCard";
 import NoInvoice from "../NoInvoice/NoInvoice";
 import type { Data, Invoice } from "../../types/AppDataType";
 import { useAppSelector } from "../../Hooks/useRedux";
+import Loader from "../Loader/Loader";
 
 type InvoiceGroupProps = {
   data: Data | undefined;
@@ -20,7 +21,7 @@ function InvoiceGroup({
   const totalInvices = useAppSelector(
     (state) => state.invoice.availableInvoices
   );
-  if (isLoading) return <p>Loading invoices...</p>;
+  if (isLoading) return <Loader message="Loading invoices..." />;
   if (isError)
     return (
       <NoInvoice message="Something went wrong //<strong>Please check your connection</strong>//" />

@@ -32,40 +32,13 @@
     margin-bottom: 10rem;
     scroll-behavior: smooth;
     scrollbar-width: 0;
-      position: relative;
-      flex-wrap: wrap;
-}
-
-.form input{
-    background: var(--secondary-bg);
-    font-weight: 500;
-    padding: 1rem;
-    width: 100%;
-    outline: 1px solid var( --dropdown-border);
-    border: none;
-    color: var(--primary-text-color);
-}
-
-.form input:focus{
-    outline: 1px solid var(--primary-button-hover);
-}
-
-.form label{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-}
-
-.form label p{
-    padding-left: 0;
-    user-select: none;
+    position: relative;
+    flex-wrap: wrap;
 }
 
 .form p{
     padding: 0.85rem;
 }
-
 
 .actions{
     display: grid;
@@ -109,7 +82,6 @@
 .setting_container {
     display: grid;
     gap: 1.5rem;
-    
 }
 
 .warning p{

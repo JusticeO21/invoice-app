@@ -18,11 +18,12 @@ import { format } from "date-fns";
 import EditInvoiceForm from "../EditInvoiceForm/EditInvoiceForm";
 import { editInvoice as showEditInvoiceForm } from "../../Redux/invoiceReducer";
 import HashSymbol from "../../components/HashSymbol/HashSymbol";
+import { toast } from "react-toastify";
+import Loader from "../../components/Loader/Loader";
 import {
   useUpdateInvoiceByIdMutation,
   useFetchInvoiceByIdQuery,
 } from "../../Redux/authApi";
-import { toast } from "react-toastify";
 
 const Invoice: React.FC<{}> = () => {
   const dispatch = useAppDispatch();
@@ -79,7 +80,7 @@ const Invoice: React.FC<{}> = () => {
     }
   }
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader message="Loading..." />;
 
   return (
     <section className={styles.invoice}>

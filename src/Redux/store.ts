@@ -7,7 +7,7 @@ import { authApi } from "./authApi";
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["dataApi", "authApi"],
+  blacklist: ["dataApi", "authApi", "invoice"],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -19,7 +19,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
       },
-    }).concat( authApi.middleware),
+    }).concat(authApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

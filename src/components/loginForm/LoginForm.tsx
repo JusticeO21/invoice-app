@@ -70,10 +70,11 @@ const LoginForm = () => {
             htmlFor="username"
             error={getErrorMessage(errors?.username)}
           >
-            username
+            <Text variant="description">username</Text>
           </FormLabel>
           <TextField
             type="text"
+            className={styles.input}
             {...register("username", {
               required: "Email is required",
               pattern: {
@@ -89,10 +90,11 @@ const LoginForm = () => {
             htmlFor="password"
             error={getErrorMessage(errors?.password)}
           >
-            password
+            <Text variant="description">password</Text>
           </FormLabel>
           <TextField
             type="text"
+            className={styles.input}
             {...register("password", {
               required: "Password is required",
               minLength: {

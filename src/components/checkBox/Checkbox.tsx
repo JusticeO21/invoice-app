@@ -1,4 +1,3 @@
-// checkbox.tsx
 import checkMark from "../../assets/icon-check.svg";
 import Icon from "../icon/Icon";
 

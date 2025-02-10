@@ -1,6 +1,5 @@
 .container{
     display:grid;
- 
     grid-template-areas:
     "item_name item_name item_name item_name"
     "item_quantity item_price item_total remove_button";
