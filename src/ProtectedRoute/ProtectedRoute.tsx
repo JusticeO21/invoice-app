@@ -18,7 +18,7 @@ const ProtectedRoute: React.FC = () => {
       <header>
         <Navbar />
       </header>
-      <main className={styles.main}>
+      <main id="main-content" className={styles.main} tabIndex={-1}>
         <Outlet />
         <ToastContainer transition={Zoom} />
       </main>

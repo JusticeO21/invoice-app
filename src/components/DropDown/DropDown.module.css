@@ -1,12 +1,20 @@
 .selectContainer{
     position: relative;
     border: none;
-     font-weight: 700;
+    font-weight: 700;
+}
+
+.selectContainer.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.selectContainer.error .toggleButton {
+    outline-color: var(--error-color, #ec5757);
 }
 
 .toggleButton{
-    border:none;
-    background: transparent;
+    border: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -14,13 +22,32 @@
     width: 100%;
     min-width: 14rem;
     padding: 0.2rem 0.9rem;
-    outline:1px solid var(--dropdown-border) ;
+    outline: 1px solid var(--dropdown-border);
     background: var(--secondary-bg);
     border-radius: 0.4rem;
+    transition: outline-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.toggleButton:hover:not(:disabled) {
+    outline-color: var(--primary-color, #7c5dfa);
+}
+
+.toggleButton:focus {
+    outline: 2px solid var(--primary-color, #7c5dfa);
+    outline-offset: 1px;
+}
+
+.toggleButton:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.toggleButton.loading {
+    cursor: wait;
 }
 
 .toggleButton p {
-    color:var(--primary-text-color);
+    color: var(--primary-text-color);
     padding: 0;
 }
 
@@ -32,24 +59,139 @@
     transform: rotateX(180deg);
 }
 
-.dropdownMenu{
+.dropdownContainer {
     position: absolute;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    background: var(--secondary-bg);
     left: 0;
     right: 0;
     margin-top: 0.6rem;
-    border-radius: 0.4rem;
     z-index: 5;
+    background: var(--secondary-bg);
+    border-radius: 0.4rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     overflow: hidden;
+    animation: slideDown 0.2s ease-out;
 }
 
-.dropdownMenu li{
+.searchContainer {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--dropdown-border);
+}
+
+.searchInput {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--dropdown-border);
+    border-radius: 0.25rem;
+    background: var(--secondary-bg);
+    color: var(--primary-text-color);
+    font-size: 0.875rem;
+    outline: none;
+}
+
+.searchInput:focus {
+    border-color: var(--primary-color, #7c5dfa);
+    box-shadow: 0 0 0 2px rgba(124, 93, 250, 0.1);
+}
+
+.dropdownMenu{
+    max-height: 200px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdownItem{
     list-style: none;
     color: var(--primary-text-color);
     padding: 0.8rem 1rem;
-    border: 1px solid var(--dropdown-border); 
+    border-bottom: 1px solid var(--dropdown-border);
+    cursor: pointer;
+    transition: background-color 0.15s ease;
 }
 
-@media (min-width: 600px){
+.dropdownItem:last-child {
+    border-bottom: none;
+}
+
+.dropdownItem:hover:not(.optionDisabled) {
+    background-color: var(--hover-bg, rgba(124, 93, 250, 0.1));
+}
+
+.dropdownItem.focused {
+    background-color: var(--hover-bg, rgba(124, 93, 250, 0.1));
+}
+
+.dropdownItem.selected {
+    background-color: var(--primary-color, #7c5dfa);
+    color: white;
+}
+
+.dropdownItem.optionDisabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.noOptions {
+    list-style: none;
+    color: var(--text-secondary, #888eb0);
+    padding: 0.8rem 1rem;
+    text-align: center;
+    font-style: italic;
+}
+
+.errorText {
+    color: var(--error-color, #ec5757);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* Animations */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .toggleButton {
+        min-width: 12rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .dropdownContainer {
+        max-height: 60vh;
+    }
+
+    .dropdownMenu {
+        max-height: 150px;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .dropdownContainer {
+        animation: none;
+    }
+
+    .toggleButton .arrow,
+    .dropdownItem {
+        transition: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .toggleButton {
+        outline-width: 2px;
+    }
+
+    .dropdownItem.selected {
+        outline: 2px solid currentColor;
+    }
 }

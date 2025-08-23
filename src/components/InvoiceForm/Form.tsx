@@ -237,12 +237,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({
             name="createdAt"
             control={control}
             render={({ field }) => (
-              <DatePicker
-                {...field}
-                control={control}
-                name="createdAt"
-                label="date"
-              />
+              <DatePicker {...field} name="createdAt" label="date" />
             )}
           />
 

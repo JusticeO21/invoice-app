@@ -6,8 +6,7 @@ import { Text } from "../../components/text/Text";
 import { Heading } from "../../components/heading/Heading";
 import InvoiceForm from "../../components/InvoiceForm/Form";
 import type { FormData } from "../../types/FormDatatype";
-import type { Invoice } from "../../types/AppDataType";
-import type { Item } from "../../types/AppDataType";
+import type { Invoice, Item } from "../../types/AppDataType";
 import { useAppDispatch, useAppSelector } from "../../Hooks/useRedux";
 import { editInvoice as hideInvoiceForm } from "../../Redux/invoiceReducer";
 import { useParams } from "react-router-dom";
@@ -28,8 +27,6 @@ function EditInvoice() {
   const dispatch = useAppDispatch();
   const { editInvoice } = useAppSelector((state) => state.invoice);
   const { invoiceId } = useParams();
-  // const data = useAppSelector((state) => state.invoice.invoiceList);
-  // const fetchedInvoice = findItemById(data, invoiceId as string);
   const [updateInvoice, { isLoading }] = useUpdateInvoiceByIdMutation();
   const { data: fetchedInvoice } = useFetchInvoiceByIdQuery(invoiceId || "");
   const defaultInvoice: FormData = {

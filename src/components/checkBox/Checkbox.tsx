@@ -1,46 +1,61 @@
+import { memo } from "react";
+import classNames from "classnames";
 import checkMark from "../../assets/icon-check.svg";
 import Icon from "../icon/Icon";
-
-import React from "react";
 import styles from "./Checkbox.module.css";
 
-interface CheckboxProps {
+export interface CheckboxProps {
   label: string;
   checked: boolean;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   value: string;
+  disabled?: boolean;
+  className?: string;
 }
 
-function Checkbox({ label, checked, onChange, value }: CheckboxProps) {
-  const labelClassName = `${styles.label} ${checked ? styles.checked : ""}`;
+function Checkbox({
+  label,
+  checked,
+  onChange,
+  value,
+  disabled = false,
+  className,
+}: Readonly<CheckboxProps>) {
+  const labelClassName = classNames(
+    styles.label,
+    { [styles.checked]: checked },
+    className
+  );
 
   return (
-    <>
+    <div className={styles.checkboxWrapper}>
       <input
         type="checkbox"
         checked={checked}
         onChange={onChange}
         id={value}
         name={value}
+        disabled={disabled}
         data-testid="checkbox-input"
         className={styles.hiddenInput}
+        aria-describedby={`${value}-label`}
       />
-      <label htmlFor={value} className={labelClassName}>
+      <label htmlFor={value} className={labelClassName} id={`${value}-label`}>
         <span
           className={styles.checkboxCustom}
-          role="checkbox"
           data-testid="checkbox-span"
+          aria-hidden="true"
         >
           <Icon
             src={checkMark}
-            alt="checkMark"
-            className={!checked ? styles.hiddenMark : ""}
+            alt=""
+            className={classNames({ [styles.hiddenMark]: !checked })}
           />
         </span>
         {label}
       </label>
-    </>
+    </div>
   );
 }
 
-export default Checkbox;
+export default memo(Checkbox);

@@ -12,9 +12,85 @@
   align-items: center;
   outline: none;
   z-index: 3000;
+  animation: fadeIn 0.2s ease-out;
+  backdrop-filter: blur(2px);
 }
 
+.dialogBackdrop:focus {
+  outline: none;
+}
 
+.dialogContent {
+  position: relative;
+  background: var(--secondary-bg, #ffffff);
+  border-radius: 8px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+  animation: slideIn 0.2s ease-out;
+  outline: none;
+}
+
+.dialogContent:focus {
+  outline: 2px solid var(--primary-color, #7c5dfa);
+  outline-offset: 2px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .dialogContent {
+    max-width: 95vw;
+    max-height: 95vh;
+    margin: 1rem;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .dialogBackdrop {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .dialogContent {
+    border: 2px solid var(--text-primary, #000000);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .dialogBackdrop,
+  .dialogContent {
+    animation: none;
+  }
+
+  .dialogBackdrop {
+    backdrop-filter: none;
+  }
+}
+
+/* Legacy button close styles (kept for backward compatibility) */
 .buttonClose {
   padding: 8px 16px;
   background-color: #007bff;

@@ -14,7 +14,7 @@ function Button({
   radius = "rounded",
   className,
   ...props
-}: ButtonProps) {
+}: Readonly<ButtonProps>) {
   const buttonClass = classNames(
     styles.button,
     styles[variant],

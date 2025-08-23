@@ -13,6 +13,27 @@
      gap: 3rem;
      padding: 1rem;
      width: 100%;
+     cursor: pointer;
+     transition: outline-color 0.2s ease;
+}
+
+.inputWrapper:hover {
+    outline-color: var(--primary-color, #7c5dfa);
+}
+
+.inputWrapper:focus-within {
+    outline: 2px solid var(--primary-color, #7c5dfa);
+    outline-offset: 1px;
+}
+
+.inputWrapper.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: var(--disabled-bg, #f4f4f5);
+}
+
+.inputWrapper.error {
+    outline-color: var(--error-color, #ec5757);
 }
 
 .inputWrapper input{
@@ -20,7 +41,11 @@
     outline: none !important;
     padding: 0;
     text-align: left;
+    cursor: pointer;
+}
 
+.inputWrapper.disabled input {
+    cursor: not-allowed;
 }
 
 .calendar{
@@ -30,5 +55,12 @@
      width: 100%;
      z-index: 5;
      padding: 1rem !important;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+     border-radius: 8px;
+}
 
+.errorText {
+    color: var(--error-color, #ec5757);
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
 }

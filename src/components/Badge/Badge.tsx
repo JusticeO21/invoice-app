@@ -1,10 +1,12 @@
-import { ReactNode, HTMLAttributes } from "react";
+import { ReactNode, HTMLAttributes, memo } from "react";
 import classNames from "classnames";
 import styles from "./Badge.module.css";
 
-interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
+export type BadgeVariant = "paid" | "pending" | "draft";
+
+export interface BadgeProps extends HTMLAttributes<HTMLOutputElement> {
   children: ReactNode;
-  variant?: "paid" | "pending" | "draft";
+  variant?: BadgeVariant;
   ariaLabel?: string;
   ariaLive?: "polite" | "assertive";
 }
@@ -16,21 +18,20 @@ function Badge({
   ariaLive = "polite",
   className,
   ...props
-}: BadgeProps) {
+}: Readonly<BadgeProps>) {
   const badgeClass = classNames(styles.badge, styles[variant], className);
 
   return (
-    <span
+    <output
       {...props}
       className={badgeClass}
-      aria-label={ariaLabel}
+      aria-label={ariaLabel || `Status: ${String(children)}`}
       aria-live={ariaLive}
-      role="status"
     >
-      <span className={styles.oval} aria-hidden="true" role="presentation" />{" "}
+      <span className={styles.oval} aria-hidden="true" />
       {children}
-    </span>
+    </output>
   );
 }
 
-export default Badge;
+export default memo(Badge);

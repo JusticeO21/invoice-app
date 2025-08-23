@@ -8,7 +8,7 @@ export interface AvatarProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "small" | "medium" | "large";
 }
 
-function Avatar({ src, alt, size = "small", ...props }: AvatarProps) {
+function Avatar({ src, alt, size = "small", ...props }: Readonly<AvatarProps>) {
   return (
     <button
       {...props}

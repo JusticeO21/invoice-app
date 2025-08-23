@@ -20,7 +20,7 @@ function Icon({
   radius = "rounded",
   size = "sm",
   className,
-}: IconProps) {
+}: Readonly<IconProps>) {
   const sizeClass =
     size === "sm" || size === "md" || size === "lg" ? styles[size] : styles.sm;
   const radiusClass =

@@ -2,8 +2,7 @@ import styles from "./404Page.module.css";
 import { Heading } from "../../components/heading/Heading";
 import { Text } from "../../components/text/Text";
 import Button from "../../components/button/Button";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const NotFoundPage = () => {
   const navigate = useNavigate();

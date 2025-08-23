@@ -1,0 +1,124 @@
+.fullScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-bg, #f8fafc);
+  z-index: 9999;
+}
+
+.inline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.spinner > div {
+  background-color: var(--primary-color, #7c5dfa);
+  border-radius: 100%;
+  display: inline-block;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+/* Size variants */
+.small > div {
+  width: 8px;
+  height: 8px;
+  margin: 0 2px;
+}
+
+.medium > div {
+  width: 12px;
+  height: 12px;
+  margin: 0 3px;
+}
+
+.large > div {
+  width: 16px;
+  height: 16px;
+  margin: 0 4px;
+}
+
+.bounce1 {
+  animation-delay: -0.32s !important;
+}
+
+.bounce2 {
+  animation-delay: -0.16s !important;
+}
+
+.bounce3 {
+  animation-delay: 0s !important;
+}
+
+.text {
+  color: var(--text-secondary, #888eb0);
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Animation */
+@keyframes sk-bouncedelay {
+  0%, 
+  80%, 
+  100% { 
+    transform: scale(0);
+  } 
+  40% { 
+    transform: scale(1.0);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .spinner > div {
+    animation: none;
+    opacity: 0.7;
+  }
+  
+  .spinner {
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 0.7;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .spinner > div {
+    background-color: var(--text-primary, #000000);
+  }
+  
+  .text {
+    color: var(--text-primary, #000000);
+    font-weight: 600;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .fullScreen {
+    background: var(--primary-bg-dark, #1a1a1a);
+  }
+}

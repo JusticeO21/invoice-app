@@ -1,4 +1,3 @@
-
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import Checkbox from "./Checkbox";
@@ -85,7 +84,8 @@ describe("Checkbox Component", () => {
       />
     );
 
-    const checkmark = screen.getByTestId("checkbox-span").querySelector("span");
-    expect(checkmark).toHaveClass(styles.hiddenMark);
+    const checkboxSpan = screen.getByTestId("checkbox-span");
+    const iconElement = checkboxSpan.querySelector("span");
+    expect(iconElement).toHaveClass(styles.hiddenMark);
   });
 });
