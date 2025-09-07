@@ -1,0 +1,49 @@
+.badge{
+   display: flex;
+   align-items: center;
+   column-gap: 1rem;
+   padding: 1.3rem 0 1.3rem 2rem;
+   border-radius: 0.8rem;
+   font-weight: 600;
+   text-transform: capitalize;
+   width: 10rem;
+   justify-content: flex-start;
+   border: none;
+   font-family: inherit;
+   font-size: inherit;
+}
+
+.oval{
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    display: block;
+    flex-shrink: 0;
+}
+
+.paid{
+    background: var(--status-paid-bg);
+    color:var(--status-paid);
+}
+
+.paid .oval{
+        background: var(--status-paid);
+    }
+
+.pending{
+    background: var(--status-pending-bg);
+    color:var(--status-pending);
+}
+
+.pending .oval{
+        background: var(--status-pending);
+    }
+
+.draft{
+    background: var(--status-draft-bg);
+    color:var(--status-draft);
+}
+
+.draft .oval{
+        background: var(--status-draft);
+    }

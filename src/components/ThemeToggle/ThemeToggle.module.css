@@ -1,0 +1,13 @@
+.button{
+  width: 2rem;
+  height: 2rem;
+  background: transparent;
+  border: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+.button img{
+  width: 100%;
+  height: 100%;
+}

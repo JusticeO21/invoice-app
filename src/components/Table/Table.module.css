@@ -1,0 +1,11 @@
+.table{
+    width: 100%;
+    text-align: left;
+    color: var(--primary-text-color);
+}
+
+.table td{
+    vertical-align: bottom;
+    height: 5rem;
+    font-weight: 700;
+}

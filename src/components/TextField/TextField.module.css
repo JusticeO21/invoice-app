@@ -1,0 +1,15 @@
+.input{
+    background: var(--secondary-bg);
+    font-weight: 500;
+    padding: 1rem;
+    width: 100%;
+    outline: 1px solid var( --dropdown-border);
+    color: var(--primary-text-color);
+    border:none;
+}
+
+.input:focus{
+    outline: 1px solid var(--primary-button-hover);
+}
+
+

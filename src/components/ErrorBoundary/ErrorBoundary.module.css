@@ -1,0 +1,122 @@
+.errorBoundary {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: var(--primary-bg, #f8fafc);
+}
+
+.content {
+  max-width: 600px;
+  text-align: center;
+  background: var(--secondary-bg, #ffffff);
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: var(--box-shadow, 0px 10px 10px -10px rgba(72, 84, 159, 0.1));
+}
+
+.icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  color: var(--text-primary, #0c0e16);
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.description {
+  color: var(--text-secondary, #888eb0);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.actions button {
+  min-width: 120px;
+  padding: 0.75rem 1.5rem;
+}
+
+.errorDetails {
+  margin: 2rem 0;
+  text-align: left;
+  background: var(--error-bg, #fef2f2);
+  border: 1px solid var(--error-border, #fecaca);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.errorDetails summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--error-color, #dc2626);
+  margin-bottom: 0.5rem;
+}
+
+.errorDetails summary:hover {
+  color: var(--error-hover, #b91c1c);
+}
+
+.errorStack {
+  background: var(--code-bg, #f1f5f9);
+  border: 1px solid var(--code-border, #e2e8f0);
+  border-radius: 4px;
+  padding: 1rem;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--code-text, #374151);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .errorBoundary {
+    padding: 1rem;
+  }
+  
+  .content {
+    padding: 2rem 1.5rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .actions {
+    flex-direction: column;
+  }
+  
+  .actions button {
+    width: 100%;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .content {
+    border: 2px solid var(--text-primary, #000000);
+  }
+  
+  .errorDetails {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .content {
+    animation: none;
+  }
+}

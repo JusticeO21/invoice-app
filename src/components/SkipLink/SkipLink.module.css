@@ -1,0 +1,50 @@
+.skipLink {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--primary-color, #7c5dfa);
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  z-index: 10000;
+  transition: top 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.skipLink:focus {
+  top: 6px;
+  outline: 2px solid var(--focus-color, #ffffff);
+  outline-offset: 2px;
+}
+
+.skipLink:hover {
+  background: var(--primary-hover, #9277ff);
+  text-decoration: underline;
+}
+
+.skipLink:active {
+  background: var(--primary-active, #6366f1);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .skipLink {
+    border: 2px solid white;
+    font-weight: 700;
+  }
+  
+  .skipLink:focus {
+    outline: 3px solid yellow;
+    outline-offset: 2px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .skipLink {
+    transition: none;
+  }
+}
